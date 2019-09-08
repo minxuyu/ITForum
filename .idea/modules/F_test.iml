@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="F:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output-test url="file://$MODULE_DIR$/../../out/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="F_main" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-joy:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: redis.clients:jedis:2.4.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-web:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:4.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet.jsp:javax.servlet.jsp-api:2.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-madvoc:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-petite:5.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: mysql:mysql-connector-java:5.1.45" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-vtor:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-db:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-jtx:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-proxetta:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-mail:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-decora:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-lagarto:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-http:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-servlet:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-json:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-bean:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-props:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-core:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jodd:jodd-log:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-pool2:2.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: javax.mail:javax.mail-api:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.mail:javax.mail:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: javax.activation:activation:1.1" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="F_main" />
+</module>

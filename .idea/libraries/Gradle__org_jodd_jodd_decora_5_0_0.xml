@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-decora:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-decora/5.0.0/5b214d55b7b1c5959e389060b71762d7f5e383cb/jodd-decora-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-decora/5.0.0/d060cc11ed49dfc7616d1d0e2cb6a294ee878c1f/jodd-decora-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

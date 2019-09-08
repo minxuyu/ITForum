@@ -1,0 +1,23 @@
+apply plugin: 'war'
+
+version = '1.0'
+
+repositories {
+    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    //mavenLocal()
+    //mavenCentral()
+}
+
+dependencies {
+    compile 'org.jodd:jodd-joy:5.0.0'
+    compile 'redis.clients:jedis:2.4.2'
+    runtime 'mysql:mysql-connector-java:5.1.45'
+
+    compile 'org.springframework:spring-web:4.2.5.RELEASE'
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.0'
+    providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.4.1'
+}

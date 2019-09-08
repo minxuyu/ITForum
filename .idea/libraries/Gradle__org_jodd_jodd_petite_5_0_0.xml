@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-petite:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-petite/5.0.0/665b23e881df87bbab5820bd79096954bb032f74/jodd-petite-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-petite/5.0.0/b7efc34294374daf8ca6a89f7740cbafb64795e/jodd-petite-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

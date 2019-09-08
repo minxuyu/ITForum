@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-madvoc:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-madvoc/5.0.0/4dbca90e5ca1e1ff34f1a4677433e969ea60fe26/jodd-madvoc-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-madvoc/5.0.0/94655c1b8361b0b401c3fbecefab46563b9c7a13/jodd-madvoc-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

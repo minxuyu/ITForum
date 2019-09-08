@@ -1,0 +1,33 @@
+# database
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/df?useSSL=false
+jdbc.username=root
+jdbc.password=199806
+
+# db pool
+joy.db.pool.driver=${jdbc.driverClassName}
+joy.db.pool.url=${jdbc.url}
+joy.db.pool.user=${jdbc.username}
+joy.db.pool.password=${jdbc.password}
+joy.db.pool.maxConnections=50
+joy.db.pool.minConnections=5
+joy.db.pool.waitIfBusy=true
+
+# db settings
+joy.db.query.debug=true
+
+# redis
+redis.hostName=localhost
+redis.port=6379
+redis.password=199806
+redis.timeout=5000
+
+# redis pool
+redis.pool.maxActive=200
+redis.pool.maxIdle=50
+redis.pool.minIdle=20
+redis.pool.maxWait=3000
+
+# redis settings
+redis.pool.testOnBorrow=true
+redis.pool.testOnReturn=true

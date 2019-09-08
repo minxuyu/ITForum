@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-mail:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-mail/5.0.0/54089ea0e0a98f5ebef65f1a4002c9ad889a9930/jodd-mail-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-mail/5.0.0/e59898583687dcecfc812acddc0b461619afc698/jodd-mail-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

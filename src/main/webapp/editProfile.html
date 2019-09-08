@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/editProfile.css">
+</head>
+<body>
+
+<div class="header clearfix">
+    <div class="w">
+        <h1 class="logo"><a href="toIndex.do">IT</a></h1>
+        <ul class="left-nav">
+            <li class="current-nav"><a href="toIndex.do">首页</a></li>
+            <li><a href="listTopic.do">话题</a></li>
+            <li><a href="listImage.do">文章</a></li>
+            <li><a href="toMessage.do">消息</a></li>
+        </ul>
+
+        <ul class="right-nav">
+            <c:choose>
+                <c:when test="${sessionScope.uid != null}">
+                    <li class="login2 relative">
+                        <a href="toMyProfile.do" id="profile"><img src="image/portrait.jpeg"></a>
+                        <ul id="down-menu">
+                            <li><a href="toMyProfile.do">个人主页</a></li>
+                            <li><a href="logout.do">退出登录</a></li>
+                        </ul>
+                    </li>
+                </c:when>
+                
+            </c:choose>
+
+
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-search"></span></a>
+                </li>
+                <li><input type="text"></li>
+        </ul>
+    </div>
+</div>
+
+	<!-- 中间主体板块 -->
+	<div class="main w clearfix">
+		<div class="edit-header"><span></span>&nbsp;编辑信息</div>
+		<form action="editProfile.do" method="post">
+			<div class="edit-title">
+                <input type="hidden" name="uid" value="${user.uid}">
+				用户名：<input type="text" name="username" value="">
+			</div>
+			<div class="edit-title">
+				签&nbsp;&nbsp;&nbsp;名：<input type="text" name="description" value="">
+			</div>
+			<div class="edit-title">
+				位&nbsp;&nbsp;&nbsp;置：<input type="text" name="position" value="">
+			</div>
+			<div class="edit-title">
+				学&nbsp;&nbsp;&nbsp;校：<input type="text" name="school" value="">
+			</div>
+			<div class="edit-title">
+				工&nbsp;&nbsp;&nbsp;作：<input type="text" name="job" value="">
+			</div>
+			<div class="relative">
+				<button class="edit-submit">确认编辑</button>
+			</div>
+		</form>
+
+        <div style="margin-top: 60px;"></div>
+		<div class="edit-header"><span></span>&nbsp;修改密码</div>
+		<form action="updatePassword.do" method="post">
+			<div class="edit-title">
+                <div class="text-danger"></div>
+				原密码：<input type="password" name="password">
+			</div>
+			<div class="edit-title">
+				新密码：<input type="password" name="newpassword">
+			</div>
+			<div class="edit-title">
+				确&nbsp;&nbsp;&nbsp;认：<input type="password" name="repassword">
+			</div>
+			<div class="relative">
+				<button class="edit-submit">确认修改</button>
+			</div>
+		</form>
+
+        <div style="margin-top: 60px;"></div>
+        <div class="edit-header"><span></span>&nbsp;更换头像</div>
+        <form action="updateHeadUrl.do" method="post" enctype="multipart/form-data">
+            <div class="edit-title">
+				<span class="text-danger"></span>
+                <div class="relative"><input type="file" name="myFileName">
+            </div>
+            <div class="relative">
+                <button class="edit-submit">确认更新</button>
+            </div>
+        </form>
+
+	</div><!-- 主体结束 -->
+
+<div class="footer">
+    <div class="w">DF论坛@2016 All Rights Reserved</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
+</body>
+</html>

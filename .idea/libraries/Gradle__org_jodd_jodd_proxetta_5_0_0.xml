@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-proxetta:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-proxetta/5.0.0/67a6f6d4be63d27bfdfac86a9c41a4c556895575/jodd-proxetta-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-proxetta/5.0.0/8a9f84f4b889c77cacc477d55c2ca182829fa322/jodd-proxetta-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-vtor:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-vtor/5.0.0/b70b07ca8d7d5afc31a08f1a7c5517a4a66c3d2b/jodd-vtor-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-vtor/5.0.0/933c12a0c94d2e55e6a2f387b112a228bbc20d41/jodd-vtor-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

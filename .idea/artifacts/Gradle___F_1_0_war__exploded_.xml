@@ -1,0 +1,55 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Gradle : F-1.0.war (exploded)">
+    <output-path>$PROJECT_DIR$/build/libs/exploded/F-1.0.war</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$">
+        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/build/libs/exploded/F-1.0.war/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="F_main/web/Web Gradle : F-1.0.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="F_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/out/production/resources" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-joy:5.0.0" />
+          <element id="library" level="project" name="Gradle: redis.clients:jedis:2.4.2" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-madvoc:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-petite:5.0.0" />
+          <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:5.1.45" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-vtor:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-db:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-jtx:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-proxetta:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-mail:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-decora:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-lagarto:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-http:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-servlet:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-json:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-bean:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-props:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-core:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.jodd:jodd-log:5.0.0" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-pool2:2.0" />
+          <element id="library" level="project" name="Gradle: javax.mail:javax.mail-api:1.6.1" />
+          <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.6.1" />
+          <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.5.RELEASE/49cd2430884b77172aa81e3fc33ef668ea1dab30/spring-web-4.2.5.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.2.5.RELEASE/a75e18322c7b362fe1daa26a245ae672ec0f3138/spring-context-4.2.5.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.2.5.RELEASE/858d6c70909b3ce7e07b59fc936f8ccfcd81c0aa/spring-aop-4.2.5.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.2.5.RELEASE/fa992ae40f6fc47117282164e0433b71da385e94/spring-beans-4.2.5.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.2.5.RELEASE/a42bdfb833d0be6c18429aea3fb0fba81f85c6e8/spring-expression-4.2.5.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.2.5.RELEASE/251207b29f0f38f61e3495a2f7fb053cf1bfe8c/spring-core-4.2.5.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

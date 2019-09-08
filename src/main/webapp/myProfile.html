@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/profile.css">
+</head>
+<body>
+
+
+
+<div class="header clearfix">
+    <div class="w">
+        <h1 class="logo"><a href="toIndex.do">IT</a></h1>
+        <ul class="left-nav">
+            <li class="current-nav"><a href="toIndex.do">首页</a></li>
+            <li><a href="listTopic.do">话题</a></li>
+            <li><a href="listImage.do">文章</a></li>
+            <li><a href="toMessage.do">消息</a></li>
+        </ul>
+
+        <ul class="right-nav">
+            <c:choose>
+                <c:when test="${sessionScope.uid != null}">
+                    <li class="login2 relative">
+                        <a href="toMyProfile.do" id="profile"><img src="image/portrait.jpeg"></a>
+                        <ul id="down-menu">
+                            <li><a href="toMyProfile.do">个人主页</a></li>
+                            <li><a href="logout.do">退出登录</a></li>
+                        </ul>
+                    </li>
+                </c:when>
+                
+            </c:choose>
+
+
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-search"></span></a>
+                </li>
+                <li><input type="text"></li>
+        </ul>
+    </div>
+</div>
+
+
+
+	<!-- 中间主体板块 -->
+	<div class="main w clearfix">
+		<div class="m-left">
+			<div class="user-image"><img src="image/portrait.jpeg"></div>
+			<div class="user-info">
+				<div class="user-name">一只柴犬</div>
+				<div class="user-desc">这个人很懒，什么都没有写~</div>
+				<div class="user-position">位置：哈尔滨市</div>
+				<div class="user-school">学校：哈尔滨工程大学</div>
+				<div class="user-job">工作：学生</div>
+			</div>
+			<div class="clearfix" style="border-bottom: 1px dashed #ddd;"></div>
+			<div class="user-button">
+                <a href="toEditProfile.do" class="button-follow">编辑信息</a>
+			</div>
+
+			<div class="user-post">
+				<div class="user-post-title"><span></span>&nbsp;发帖</div>
+				<ul class="user-post-list">
+					<c:forEach items="${postList}" var="post">
+                        <li>
+                            <span class="glyphicon glyphicon-file"></span>&nbsp;
+                            <a href="toPost.do?pid=${post.pid}">3D渲染（一）--管道</a>
+                            <span class="user-post-time">发布于 2019.9.4 20：46</span>
+                        </li>
+                    </c:forEach>
+				</ul>
+			</div>
+		</div>
+
+		<div class="m-right">
+			<div class="user-follow">
+				<div class="user-follow">关注了<span class="user-count">23</span>人</div>
+				<div class="user-follower">关注者<span class="user-count">1</span>人</div>
+			</div>
+			<div class="user-attr">
+				<span class="user-like-count">获赞：9</span>&nbsp;
+				<span class="user-post-count">发帖：1</span>
+
+			</div>
+			<div class="user-scan-count">个人主页被浏览12次</div>
+		</div>
+
+	</div><!-- 主体结束 -->
+
+
+<div class="footer">
+    <div class="w">DF论坛@2016 All Rights Reserved</div>
+</div>
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+</body>
+</html>

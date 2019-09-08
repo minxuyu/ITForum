@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jodd:jodd-props:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-props/5.0.0/2a4855691a4021754dadcedaf684cdf24108377a/jodd-props-5.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jodd/jodd-props/5.0.0/10f879e28f53cc0af0d7b43001a3c9df8e2ed266/jodd-props-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
