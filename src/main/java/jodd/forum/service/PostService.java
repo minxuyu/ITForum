@@ -24,7 +24,7 @@ public class PostService {
         //每页记录数，从哪开始
         int limit = 8;
         int offset = (curPage-1) * limit;
-        System.out.println("获得总记录数，总页数");
+       //获得总记录数，总页数
         int allCount = postMapper.selectPostCount();
         int allPage = 0;
         if (allCount <= limit) {
@@ -34,8 +34,8 @@ public class PostService {
         } else {
             allPage = allCount / limit + 1;
         }
-        System.out.println("分页得到数据列表");
-        List<Post> postList = postMapper.listPostByTime(offset,limit);
+        //获得总记录数，总页数System.out.println("分页得到数据列表");
+        List<Post> postList = postMapper.listPostByTime(offset+"",limit+"");
         System.out.println("从Redis连接池建立jedis连接");
         Jedis jedis = redisService.getResource();
         System.out.println("连接成功");

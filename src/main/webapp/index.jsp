@@ -81,7 +81,8 @@
 
                             <j:then>
                                 <j:for start="1" end="${ pageBean.allPage}" status="i">
-                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i.value }">${i.value }</a>
+                                    <li class="curPage"><a href="listPostByTime.do?curPage=${i.value }">${i.value }</a>
+
                                     </li>
                                 </j:for>
                             </j:then>
@@ -90,7 +91,7 @@
                                 <j:ifelse test="${pageBean.curPage<=5 }">
                                     <j:then>
                                         <j:for start="1" end="10" status="i">
-                                            <li class="pageNum"><a
+                                            <li class="curPage"><a
                                                     href="listPostByTime.do?curPage=${i.value }">${i.value }</a></li>
                                         </j:for>
                                     </j:then>
@@ -100,7 +101,7 @@
                                             <j:then>
                                                 <j:for start="${pageBean.allPage-9 }" end="${ pageBean.allPage}"
                                                        status="i">
-                                                    <li class="pageNum"><a
+                                                    <li class="curPage"><a
                                                             href="listPostByTime.do?curPage=${i.value }">${i.value }</a>
                                                     </li>
                                                 </j:for>
@@ -109,7 +110,7 @@
                                             <j:else>
                                                 <j:for start="${pageBean.curPage-4 }" end="${ pageBean.curPage+5}"
                                                        status="i">
-                                                    <li class="pageNum"><a
+                                                    <li class="curPage"><a
                                                             href="listPostByTime.do?curPage=${i.value }">${i.value }</a>
                                                     </li>
                                                 </j:for>

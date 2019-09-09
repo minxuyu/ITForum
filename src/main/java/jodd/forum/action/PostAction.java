@@ -6,6 +6,7 @@ import jodd.forum.model.User;
 import jodd.forum.service.PostService;
 import jodd.forum.service.UserService;
 import jodd.madvoc.meta.Action;
+import jodd.madvoc.meta.In;
 import jodd.madvoc.meta.MadvocAction;
 import jodd.madvoc.meta.Out;
 import jodd.petite.meta.PetiteInject;
@@ -26,9 +27,13 @@ public class PostAction {
     List<User> userList;
     @Out
     List<User> hotUserList;
+    @In
+    int curPage;
+
 
     @Action("/listPostByTime.do")
-    public String listPostByTime(int curPage){
+    public String listPostByTime(){
+        System.out.println("123"+curPage);
         pageBean = postService.listPostByTime(curPage);
         userList = userService.listUserByTime();
         hotUserList = userService.listUserByHot();
