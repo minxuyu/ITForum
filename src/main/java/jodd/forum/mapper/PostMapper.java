@@ -51,7 +51,6 @@ public class PostMapper {
 //    </insert>
     }
 
-    @ReadWriteTransaction
     public List<Post> listPostByTime(int offset, int limit) {
         DbSqlBuilder dbsql =
                 sql("select $C{u.uid} ,$C{u.username} ,$C{u.headUrl}, $C{p.pid}, $C{p.title}," +
@@ -80,16 +79,9 @@ public class PostMapper {
         }
         System.out.println("查询完毕");
         return list;
-
-//            <select id="listPostByTime" resultMap="postMap">
-//                select u.uid,u.username,u.head_url,p.pid,p.title,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-//        join user u on p.uid = u.uid
-//        order by p.reply_time desc limit #{offset},#{limit}
-//    </select>
-
     }
 
-    @ReadWriteTransaction
+    
     public int selectPostCount() {
         DbSqlBuilder dbsql =
                 sql("select * from $T{Post p} ");
@@ -101,12 +93,9 @@ public class PostMapper {
         System.out.println("查询完毕");
         int a = list.size();
         return a;
-//           <select id="selectPostCount" resultType="int">
-//                select count(*) from post
-//    </select>
     }
 
-    @ReadWriteTransaction
+    
     public Post getPostByPid(int pid) {
 
         DbSqlBuilder dbsql =
@@ -138,11 +127,6 @@ public class PostMapper {
             e.printStackTrace();
         }
         return post;
-//           <select id="getPostByPid" resultMap="post2Map">
-//                select u.uid,u.username,u.head_url,p.pid,p.title,p.content,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-//        join user u on p.uid = u.uid
-//        where p.pid=#{pid}
-//    </select>
     }
 
     public void updateReplyCount(int pid) {

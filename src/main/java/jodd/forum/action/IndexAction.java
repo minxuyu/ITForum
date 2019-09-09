@@ -31,19 +31,13 @@ public class IndexAction {
 
     @Action("/toIndex.do")
     public String toIndex(){
-        System.out.println("打印客户端地址");
-        System.out.println(request.getRemoteAddr());
         //记录访问信息
-        System.out.println("记录访问信息");
         userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());
         //列出帖子
-        System.out.println("列出帖子");
         pageBean = postService.listPostByTime(1);
         //列出用户
-        System.out.println("列出用户");
         userList = userService.listUserByTime();
         //列出活跃用户
-        System.out.println("列出活跃用户");
         hotUserList = userService.listUserByHot();
         return "index";
     }

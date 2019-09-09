@@ -14,7 +14,7 @@ import static jodd.db.oom.sqlgen.DbSqlBuilder.sql;
 @PetiteBean
 public class MessageMapper {
 
-    void insertMessage(Message message) {
+    public void insertMessage(Message message) {
 
 //            <insert id="insertMessage">
 //                insert into message(uid,other_id,other_username,operation,post_id,displayed_content)
@@ -22,7 +22,6 @@ public class MessageMapper {
 //    </insert>
     }
 
-    @ReadWriteTransaction
     public List<Message> listMessageByUid(String uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{m.*} from $T{Message m}  where uid = :uid");
@@ -30,9 +29,6 @@ public class MessageMapper {
         dbquery.setString("uid", uid);
         List<Message> list = dbquery.list(Message.class);
         return list;
-
-//            <select id="listMessageByUid" resultType="com.fc.model.Message">
-//                select * from message where uid=#{uid}
-//    </select>
     }
+
 }
