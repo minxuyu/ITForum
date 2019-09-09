@@ -17,7 +17,7 @@ import static jodd.db.oom.sqlgen.DbSqlBuilder.sql;
 @PetiteBean
 public class TopicMapper {
 
-    @ReadWriteTransaction
+    
     public List<Topic> listTopic() {
         DbSqlBuilder dbsql =
                 sql("select $C{t.tid},$C{t.name},$C{t.content},$C{t.image} from $T{Topic t}");
@@ -37,18 +37,14 @@ public class TopicMapper {
             e.printStackTrace();
         }
         return list;
-//        select tid,name,content,image from topic
     }
 
-    @ReadWriteTransaction
+    
     public List<String> listImage() {
         DbSqlBuilder dbsql =
                 sql("select image_url from image");
         DbOomQuery dbquery = query(dbsql);
         List<String> list = dbquery.list(String.class);
         return list;
-//        select image_url from image
     }
-
-    ;
 }

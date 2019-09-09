@@ -1,8 +1,13 @@
 package jodd.forum.service;
 
+import jodd.forum.async.MessageTask;
+import jodd.forum.mapper.MessageMapper;
 import jodd.forum.mapper.PostMapper;
+import jodd.forum.mapper.ReplyMapper;
+import jodd.forum.mapper.UserMapper;
 import jodd.forum.model.PageBean;
 import jodd.forum.model.Post;
+import jodd.forum.util.MyConstant;
 import jodd.jtx.meta.ReadWriteTransaction;
 import jodd.petite.meta.PetiteBean;
 import jodd.petite.meta.PetiteInject;
@@ -18,6 +23,14 @@ public class PostService {
     PostMapper postMapper;
     @PetiteInject
     RedisService redisService;
+    @PetiteInject
+    ReplyMapper replyMapper;
+    @PetiteInject
+    UserMapper userMapper;
+    @PetiteInject
+    MessageMapper messageMapper;
+    @PetiteInject
+    MessageTask messageTask;
 
     @ReadWriteTransaction
     public PageBean<Post> listPostByTime(int curPage) {
@@ -53,10 +66,60 @@ public class PostService {
         }
         return pageBean;
     }
-    //根据uid，获得帖子列表
+
     @ReadWriteTransaction
     public List<Post> getPostList(int uid) {
         String post_uid=uid+"";
         return postMapper.listPostByUid(post_uid);
     }
+
+    @ReadWriteTransaction
+    public Post getPostByPid(int pid) {
+        //更新浏览数
+        postMapper.updateScanCount(pid);
+        Post post =postMapper.getPostByPid(pid);
+        //设置点赞数
+        Jedis jedis = redisService.getResource();
+        long likeCount = jedis.scard(pid+":like");
+        post.setLikeCount((int)likeCount);
+
+        if(jedis!=null){
+            redisService.returnResource(jedis);
+        }
+        return post;
+    }
+
+    @ReadWriteTransaction
+    public boolean getLikeStatus(int pid, int sessionUid) {
+        Jedis jedis = redisService.getResource();
+        boolean result = jedis.sismember(pid+":like", String.valueOf(sessionUid));
+
+        if(jedis!=null){
+            redisService.returnResource(jedis);
+        }
+        return result;
+    }
+
+    @ReadWriteTransaction
+    public String clickLike(int pid, int sessionUid) {
+        Jedis jedis = redisService.getResource();
+        //pid被sessionUid点赞
+        jedis.sadd(pid+":like", String.valueOf(sessionUid));
+        //增加用户获赞数
+        jedis.hincrBy("vote",sessionUid+"",1);
+        //插入一条点赞消息
+        messageTask.setOperation(MyConstant.OPERATION_CLICK_LIKE);
+        messageTask.setPid(pid);
+        messageTask.setRid(0);
+        messageTask.setSessionUid(sessionUid);
+        messageTask.sendMessage();
+        String result = String.valueOf(jedis.scard(pid+":like"));
+
+        if(jedis!=null){
+            redisService.returnResource(jedis);
+        }
+        return result;
+    }
+
+
 }

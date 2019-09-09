@@ -2,7 +2,6 @@ package jodd.forum.action;
 
 import jodd.forum.mapper.UserMapper;
 import jodd.forum.model.Message;
-import jodd.forum.model.User;
 import jodd.forum.service.MessageService;
 import jodd.madvoc.meta.Action;
 import jodd.madvoc.meta.In;

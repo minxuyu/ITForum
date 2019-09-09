@@ -8,23 +8,24 @@ import java.util.List;
 
 @PetiteBean
 public class ReplyMapper {
-    void insertReply(Reply reply){
+
+    public void insertReply(Reply reply){
 
     }
 
-    List<Reply> listReply(int pid){
+    public List<Reply> listReply(String pid){
         return null;
     }
 
-    void insertComment(Comment comment){
+    public void insertComment(Comment comment){
 
     }
 
-    List<Comment> listComment(Integer rid){
+    public List<Comment> listComment(String rid){
         return null;
     }
 
-    String getContentByRid(int rid){
+    public String getContentByRid(String rid){
         return null;
     }
 }

@@ -6,7 +6,6 @@ import jodd.db.oom.sqlgen.DbSqlBuilder;
 import jodd.forum.model.Post;
 import jodd.forum.model.User;
 import jodd.jtx.meta.ReadWriteTransaction;
-import jodd.madvoc.meta.In;
 import jodd.petite.meta.PetiteBean;
 
 import java.sql.ResultSet;
@@ -52,17 +51,16 @@ public class PostMapper {
 //    </insert>
     }
 
-    @ReadWriteTransaction
     public List<Post> listPostByTime(String offset, String limit) {
-        int off_set =Integer.parseInt(offset);
-        int lim_it= Integer.parseInt(limit);
+        int off_set = Integer.parseInt(offset);
+        int lim_it = Integer.parseInt(limit);
         DbSqlBuilder dbsql =
                 sql("select $C{u.uid} ,$C{u.username} ,$C{u.headUrl}, $C{p.pid}, $C{p.title}," +
                         "$C{p.publishTime} ,$C{p.replyTime} ,$C{p.replyCount}, $C{p.likeCount} ," +
                         "$C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid  order by $C{p.replyTime} desc limit :off_set,:lim_it");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setInteger("off_set",off_set);
-        dbquery.setInteger("lim_it",lim_it);
+        dbquery.setInteger("off_set", off_set);
+        dbquery.setInteger("lim_it", lim_it);
         System.out.println("查询数据库获取推送列表");
         ResultSet rs = dbquery.execute();
         List<Post> list = new ArrayList<>();
@@ -83,16 +81,9 @@ public class PostMapper {
         }
         System.out.println("查询完毕");
         return list;
-
-//            <select id="listPostByTime" resultMap="postMap">
-//                select u.uid,u.username,u.head_url,p.pid,p.title,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-//        join user u on p.uid = u.uid
-//        order by p.reply_time desc limit #{offset},#{limit}
-//    </select>
-
     }
 
-    @ReadWriteTransaction
+
     public int selectPostCount() {
         DbSqlBuilder dbsql =
                 sql("select * from $T{Post p} ");
@@ -104,12 +95,9 @@ public class PostMapper {
         System.out.println("查询完毕");
         int a = list.size();
         return a;
-//           <select id="selectPostCount" resultType="int">
-//                select count(*) from post
-//    </select>
     }
 
-    @ReadWriteTransaction
+
     public Post getPostByPid(int pid) {
 
         DbSqlBuilder dbsql =
@@ -141,11 +129,6 @@ public class PostMapper {
             e.printStackTrace();
         }
         return post;
-//           <select id="getPostByPid" resultMap="post2Map">
-//                select u.uid,u.username,u.head_url,p.pid,p.title,p.content,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
-//        join user u on p.uid = u.uid
-//        where p.pid=#{pid}
-//    </select>
     }
 
     public void updateReplyCount(int pid) {
