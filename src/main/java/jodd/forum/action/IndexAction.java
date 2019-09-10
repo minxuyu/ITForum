@@ -31,44 +31,49 @@ public class IndexAction {
 
     @Action("/toIndex.do")
     public String toIndex(){
-        //è®°å½•è®¿é—®ä¿¡æ¯
+        //¼ÇÂ¼·ÃÎÊĞÅÏ¢
+        System.out.println("Routing at index");
+        System.out.println("Record visit information");
         userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());
-        //åˆ—å‡ºå¸–å­
+        //ÁĞ³öÌû×Ó
+        System.out.println("List post");
         pageBean = postService.listPostByTime(1);
-        //åˆ—å‡ºç”¨æˆ·
+        //ÁĞ³öÓÃ»§
+        System.out.println("List user");
         userList = userService.listUserByTime();
-        //åˆ—å‡ºæ´»è·ƒç”¨æˆ·
+        //ÁĞ³ö»îÔ¾ÓÃ»§
+        System.out.println("List active user");
         hotUserList = userService.listUserByHot();
         return "index";
     }
 //
 //
-//    //ä¸Šä¼ å›¾ç‰‡
+//    //ÉÏ´«Í¼Æ¬
 //    @RequestMapping(value = "/upload.do", method = {RequestMethod.POST}, produces = "text/plain;charset=UTF-8")
 //    public
 //    @ResponseBody
 //    String upload(MultipartFile myFileName) throws IOException {
 //
-//        // æ–‡ä»¶ç±»å‹é™åˆ¶
+//        // ÎÄ¼şÀàĞÍÏŞÖÆ
 //        String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
 //        boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
 //        if (!allowed) {
-//            return "error|ä¸æ”¯æŒçš„ç±»å‹";
+//            return "error|²»Ö§³ÖµÄÀàĞÍ";
 //        }
-//        // å›¾ç‰‡å¤§å°é™åˆ¶
+//        // Í¼Æ¬´óĞ¡ÏŞÖÆ
 //        if (myFileName.getSize() > 3 * 1024 * 1024) {
-//            return "error|å›¾ç‰‡å¤§å°ä¸èƒ½è¶…è¿‡3M";
+//            return "error|Í¼Æ¬´óĞ¡²»ÄÜ³¬¹ı3M";
 //        }
-//        // åŒ…å«åŸå§‹æ–‡ä»¶åçš„å­—ç¬¦ä¸²
+//        // °üº¬Ô­Ê¼ÎÄ¼şÃûµÄ×Ö·û´®
 //        String fi = myFileName.getOriginalFilename();
-//        // æå–æ–‡ä»¶æ‹“å±•å
+//        // ÌáÈ¡ÎÄ¼şÍØÕ¹Ãû
 //        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
-//        // ç”Ÿæˆäº‘ç«¯çš„çœŸå®æ–‡ä»¶å
+//        // Éú³ÉÔÆ¶ËµÄÕæÊµÎÄ¼şÃû
 //        String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
 //
 //        qiniuService.upload(myFileName.getBytes(), remoteFileName);
 //
-//        // è¿”å›å›¾ç‰‡çš„URLåœ°å€
+//        // ·µ»ØÍ¼Æ¬µÄURLµØÖ·
 //        return MyConstant.QINIU_IMAGE_URL + remoteFileName;
 //    }
 

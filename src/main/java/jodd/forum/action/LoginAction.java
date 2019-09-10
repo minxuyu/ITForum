@@ -43,7 +43,6 @@ public class LoginAction {
 
     @Action("/toLogin.do")
     public String toLogin() {
-        System.out.println(session);
         return "login";
     }
 
@@ -53,7 +52,6 @@ public class LoginAction {
     public String register(User user) {
         user.setEmail(FormEmail);
         user.setPassword(repassword);
-        System.out.println(user + " " + repassword);
         String result = loginService.register(user, repassword);
         if (result.equals("ok")) {
             info = "系统已经向你的邮箱发送了一封邮件哦，验证后就可以登录啦~";
@@ -69,17 +67,13 @@ public class LoginAction {
     @POST
     @Action("/login.do")
     public String login(User user) {
-        System.out.println("开始执行login前台");
         user.setEmail(FormEmail);
         user.setPassword(password);
-        System.out.println("开始执行login后台");
         Map<String, Object> map = loginService.login(user);
-        System.out.println("查询结果状态：" + map.get("status"));
         status = map.get("status").toString();
         if (map.get("status").equals("yes")) {
             session.setAttribute("uid", map.get("uid"));
             session.setAttribute("headUrl", map.get("headUrl"));
-            System.out.println("开始跳转到个人页");
             return "login";
         } else {
             email = user.getEmail();
@@ -91,7 +85,6 @@ public class LoginAction {
     @Action("/activate.do")
     public String activate() {
         loginService.activate(code);
-        System.out.println("用户码：" + code);
         info = "您的账户已经激活成功，可以去登录啦~";
         return "prompt/promptInfo";
     }
