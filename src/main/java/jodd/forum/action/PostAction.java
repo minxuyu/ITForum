@@ -34,6 +34,9 @@ public class PostAction {
     List<User> userList;
     @Out
     List<User> hotUserList;
+    @In
+    int curPage;
+
     @Out
     Post post;
     @Out
@@ -45,7 +48,8 @@ public class PostAction {
     HttpSession session;
 
     @Action("/listPostByTime.do")
-    public String listPostByTime(int curPage) {
+    public String listPostByTime(){
+        System.out.println("123"+curPage);
         pageBean = postService.listPostByTime(curPage);
         userList = userService.listUserByTime();
         hotUserList = userService.listUserByHot();

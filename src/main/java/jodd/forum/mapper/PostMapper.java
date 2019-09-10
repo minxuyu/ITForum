@@ -51,14 +51,16 @@ public class PostMapper {
 //    </insert>
     }
 
-    public List<Post> listPostByTime(int offset, int limit) {
+    public List<Post> listPostByTime(String offset, String limit) {
+        int off_set = Integer.parseInt(offset);
+        int lim_it = Integer.parseInt(limit);
         DbSqlBuilder dbsql =
                 sql("select $C{u.uid} ,$C{u.username} ,$C{u.headUrl}, $C{p.pid}, $C{p.title}," +
                         "$C{p.publishTime} ,$C{p.replyTime} ,$C{p.replyCount}, $C{p.likeCount} ," +
-                        "$C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid  order by $C{p.replyTime} desc");
+                        "$C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid  order by $C{p.replyTime} desc limit :off_set,:lim_it");
         DbOomQuery dbquery = query(dbsql);
-//        dbquery.setInteger("offset",offset);
-//        dbquery.setInteger("limit",limit);
+        dbquery.setInteger("off_set", off_set);
+        dbquery.setInteger("lim_it", lim_it);
         System.out.println("查询数据库获取推送列表");
         ResultSet rs = dbquery.execute();
         List<Post> list = new ArrayList<>();
@@ -81,7 +83,7 @@ public class PostMapper {
         return list;
     }
 
-    
+
     public int selectPostCount() {
         DbSqlBuilder dbsql =
                 sql("select * from $T{Post p} ");
@@ -95,7 +97,7 @@ public class PostMapper {
         return a;
     }
 
-    
+
     public Post getPostByPid(int pid) {
 
         DbSqlBuilder dbsql =
