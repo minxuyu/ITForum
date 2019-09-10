@@ -100,6 +100,7 @@ public class UserService {
         userMapper.updateHeadUrl(uid_s,headUrl);
         System.out.println("Success");
     }
+
     @ReadWriteTransaction
     public boolean getFollowStatus(int sessionUid, int uid) {
         Jedis jedis = redisService.getResource();
@@ -108,5 +109,15 @@ public class UserService {
             redisService.returnResource(jedis);
         }
         return following;
+    }
+
+    @ReadWriteTransaction
+    public String getHeadUrlByUid(int uid){
+        return userMapper.selectHeadUrl(uid+"");
+    }
+
+    @ReadWriteTransaction
+    public String getUsernameByUid(int uid){
+        return userMapper.selectUsernameByUid(uid+"");
     }
 }

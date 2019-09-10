@@ -160,12 +160,16 @@ public class UserAction {
 
     @Action("/toProfile.do")
     public String toProfile() {
+        System.out.println("In toProfile.do session.getAttribute");
         int sessionUid = (int) session.getAttribute("uid");
         if(sessionUid==uid){
             return "myProfile";
         }
+        System.out.println("In toProfile.do getFollowStatus");
         following = userService.getFollowStatus(sessionUid,uid);
+        System.out.println("In toProfile.do getProfile");
         user = userService.getProfile(sessionUid, uid);
+        System.out.println("In toProfile.do getPostList");
         postList =  postService.getPostList(uid);
         return "profile";
     }

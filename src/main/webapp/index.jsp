@@ -31,14 +31,14 @@
                     <j:iter items="${pageBean.list}" var="post">
                         <li class="clearfix">
                             <div class="post-image">
-                                <a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a>
+                                <a href="toProfile.do?uid=${post.uid}"><img src="${post.headUrl}"></a>
                             </div>
                             <div class="post-content">
                                 <div class="post-title"><a href="toPost.do?pid=${post.pid}">${post.title}</a></div>
                                 <div class="post-other">
                                     <div class="post-other-left">
                                         <span class="post-username"><a
-                                                href="toProfile.do?uid=${post.user.uid}">${post.user.username}</a></span>
+                                                href="toProfile.do?uid=${post.uid}">${post.username}</a></span>
                                         <span>&nbsp;发表</span>
                                         <span class="post-time">&nbsp;${post.publishTime}</span>
                                         <span>&nbsp;最后回复&nbsp;</span>

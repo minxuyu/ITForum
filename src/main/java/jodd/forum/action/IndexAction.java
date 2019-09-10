@@ -22,19 +22,23 @@ public class IndexAction {
     @PetiteInject
     private PostService postService;
 
-    @In HttpServletRequest request;
+    @In
+    HttpServletRequest request;
 
-    @Out PageBean<Post> pageBean;
-    @Out List<User> userList;
-    @Out List<User> hotUserList;
+    @Out
+    PageBean<Post> pageBean;
+    @Out
+    List<User> userList;
+    @Out
+    List<User> hotUserList;
 
 
     @Action("/toIndex.do")
-    public String toIndex(){
+    public String toIndex() {
         //记录访问信息
         System.out.println("Routing at index");
         System.out.println("Record visit information");
-        userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());
+        userService.record(request.getRequestURL(), request.getContextPath(), request.getRemoteAddr());
         //列出帖子
         System.out.println("List post");
         pageBean = postService.listPostByTime(1);

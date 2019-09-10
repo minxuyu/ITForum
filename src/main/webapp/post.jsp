@@ -24,9 +24,9 @@
 					<span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
 				</div>
 				<div class="post-user clearfix">
-					<div class="user-image"><a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>
+					<div class="user-image"><a href="toProfile.do?uid=${post.uid}"><img src="${post.headUrl}"></a></div>
 					<div class="user-info">
-						<div class="user-name">${post.user.username}</div>
+						<div class="user-name">${post.username}</div>
 						<div class="post-time">编辑于 ${post.publishTime}</div>
 					</div>
 					<div class="other-count">
@@ -62,9 +62,9 @@
 					<!-- 回复条目 -->
                     <j:iter items="${replyList}" var="reply" status="status">
                         <div class="post-reply-item clearfix">
-                            <div class="item-image"><a href="toProfile.do?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
+                            <div class="item-image"><a href="toProfile.do?uid=${reply.uid}"><img src="${reply.headUrl}"></a></div>
                             <div class="item-info">
-                                <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
+                                <div class="item-user-name"><a href="#">${reply.username}</a></div>
                                 <div class="item-content">${reply.content}</div>
                                 <div class="item-date">发表于 ${reply.replyTime}</div>
 
@@ -74,7 +74,7 @@
                                         <%--一个wrap开始--%>
                                         <div class="item-wrap">
                                             <div class="item-more-1">
-                                                <a href="toProfile.do?uid=${comment.user.uid}" class="item-more-user">${comment.user.username}</a>
+                                                <a href="toProfile.do?uid=${comment.uid}" class="item-more-user">${comment.username}</a>
                                                 <span>：</span>
                                                 <span class="item-more-content">${comment.content}</span>
                                             </div>

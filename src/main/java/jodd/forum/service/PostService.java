@@ -8,12 +8,13 @@ import jodd.forum.mapper.UserMapper;
 import jodd.forum.model.PageBean;
 import jodd.forum.model.Post;
 import jodd.forum.util.MyConstant;
+import jodd.forum.util.MyUtil;
 import jodd.jtx.meta.ReadWriteTransaction;
 import jodd.petite.meta.PetiteBean;
 import jodd.petite.meta.PetiteInject;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
+import java.util.Date;
 import java.util.List;
 
 @PetiteBean
@@ -36,8 +37,8 @@ public class PostService {
     public PageBean<Post> listPostByTime(int curPage) {
         //每页记录数，从哪开始
         int limit = 8;
-        int offset = (curPage-1) * limit;
-       //获得总记录数，总页数
+        int offset = (curPage - 1) * limit;
+        //获得总记录数，总页数
         int allCount = postMapper.selectPostCount();
         int allPage = 0;
         if (allCount <= limit) {
@@ -48,19 +49,17 @@ public class PostService {
             allPage = allCount / limit + 1;
         }
         //获得总记录数，总页数System.out.println("分页得到数据列表");
-        List<Post> postList = postMapper.listPostByTime(offset+"",limit+"");
-        System.out.println("从Redis连接池建立jedis连接");
+        List<Post> postList = postMapper.listPostByTime(offset + "", limit + "");
         Jedis jedis = redisService.getResource();
-        System.out.println("连接成功");
-        for(Post post : postList){
-            post.setLikeCount((int)(long)jedis.scard(post.getPid()+":like"));
+        for (Post post : postList) {
+            post.setLikeCount((int) (long) jedis.scard(post.getPid() + ":like"));
         }
 
         //构造PageBean
-        PageBean<Post> pageBean = new PageBean<>(allPage,curPage);
+        PageBean<Post> pageBean = new PageBean<>(allPage, curPage);
         pageBean.setList(postList);
 
-        if(jedis!=null){
+        if (jedis != null) {
             System.out.println("returnResource");
             redisService.returnResource(jedis);
         }
@@ -69,7 +68,7 @@ public class PostService {
 
     @ReadWriteTransaction
     public List<Post> getPostList(int uid) {
-        String post_uid=uid+"";
+        String post_uid = uid + "";
         return postMapper.listPostByUid(post_uid);
     }
 
@@ -77,13 +76,14 @@ public class PostService {
     public Post getPostByPid(int pid) {
         //更新浏览数
         postMapper.updateScanCount(pid);
-        Post post =postMapper.getPostByPid(pid);
+        Post post = postMapper.getPostByPid(pid);
+        System.out.println(post);
         //设置点赞数
         Jedis jedis = redisService.getResource();
-        long likeCount = jedis.scard(pid+":like");
-        post.setLikeCount((int)likeCount);
+        long likeCount = jedis.scard(pid + ":like");
+        post.setLikeCount((int) likeCount);
 
-        if(jedis!=null){
+        if (jedis != null) {
             redisService.returnResource(jedis);
         }
         return post;
@@ -92,9 +92,9 @@ public class PostService {
     @ReadWriteTransaction
     public boolean getLikeStatus(int pid, int sessionUid) {
         Jedis jedis = redisService.getResource();
-        boolean result = jedis.sismember(pid+":like", String.valueOf(sessionUid));
+        boolean result = jedis.sismember(pid + ":like", String.valueOf(sessionUid));
 
-        if(jedis!=null){
+        if (jedis != null) {
             redisService.returnResource(jedis);
         }
         return result;
@@ -104,21 +104,37 @@ public class PostService {
     public String clickLike(int pid, int sessionUid) {
         Jedis jedis = redisService.getResource();
         //pid被sessionUid点赞
-        jedis.sadd(pid+":like", String.valueOf(sessionUid));
+        jedis.sadd(pid + ":like", String.valueOf(sessionUid));
         //增加用户获赞数
-        jedis.hincrBy("vote",sessionUid+"",1);
+        jedis.hincrBy("vote", sessionUid + "", 1);
         //插入一条点赞消息
         messageTask.setOperation(MyConstant.OPERATION_CLICK_LIKE);
         messageTask.setPid(pid);
         messageTask.setRid(0);
         messageTask.setSessionUid(sessionUid);
         messageTask.sendMessage();
-        String result = String.valueOf(jedis.scard(pid+":like"));
+        String result = String.valueOf(jedis.scard(pid + ":like"));
 
-        if(jedis!=null){
+        if (jedis != null) {
             redisService.returnResource(jedis);
         }
         return result;
+    }
+
+    @ReadWriteTransaction
+    public int publishPost(Post post) {
+        //构造帖子
+        post.setPublishTime(MyUtil.formatDate(new Date()));
+        post.setReplyTime(MyUtil.formatDate(new Date()));
+        post.setReplyCount(0);
+        post.setLikeCount(0);
+        post.setScanCount(0);
+        //插入一条帖子记录
+        postMapper.insertPost(post);
+        System.out.println(post.getPid());
+        //更新用户发帖量
+        userMapper.updatePostCount(post.getUid() + "");
+        return post.getPid();
     }
 
 

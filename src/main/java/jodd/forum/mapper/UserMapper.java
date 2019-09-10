@@ -5,7 +5,6 @@ import jodd.db.oom.sqlgen.DbEntitySql;
 import jodd.db.oom.sqlgen.DbSqlBuilder;
 import jodd.forum.model.Info;
 import jodd.forum.model.User;
-import jodd.jtx.meta.ReadWriteTransaction;
 import jodd.petite.meta.PetiteBean;
 
 import java.sql.ResultSet;
@@ -70,7 +69,7 @@ public class UserMapper {
         DbOomQuery dbquery = query(dbsql);
         dbquery.setString("activateCode", activateCode);
         dbquery.executeUpdate();
-}
+    }
 
     public void updateScanCount(String uid) {
         DbSqlBuilder dbsql =
@@ -176,16 +175,30 @@ public class UserMapper {
         return password;
     }
 
-    public void updateHeadUrl(String uid,String headUrl){
+    public void updateHeadUrl(String uid, String headUrl) {
         DbSqlBuilder dbsql =
                 sql("update $T{User u} set head_url= :headUrl  where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("headUrl",headUrl);
+        dbquery.setString("headUrl", headUrl);
         dbquery.setString("uid", uid);
         dbquery.executeUpdate();
     }
 
-    public User selectUsernameByUid(String uid){
-        return null;
+    public String selectUsernameByUid(String uid) {
+        DbSqlBuilder dbsql =
+                sql("select $C{u.username} from $T{User u} where uid = :uid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setString("uid", uid);
+        List<User> list = dbquery.list(User.class);
+        return list.get(0).getUsername();
+    }
+
+    public void updatePostCount(String uid) {
+        DbSqlBuilder dbsql =
+                sql("update $T{User u} set post_count=post_count+1  where uid = :uid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setString("uid", uid);
+        dbquery.executeUpdate();
+//        update user set post_count = post_count+1 where uid=#{uid};
     }
 }

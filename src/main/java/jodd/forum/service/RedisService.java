@@ -24,7 +24,6 @@ public class RedisService {
     }
 
     public Jedis getResource() {
-        System.out.println("获取连接资源");
         return jedisPool.getResource();
     }
 

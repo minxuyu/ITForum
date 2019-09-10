@@ -4,8 +4,6 @@ import jodd.db.oom.DbOomQuery;
 import jodd.db.oom.sqlgen.DbEntitySql;
 import jodd.db.oom.sqlgen.DbSqlBuilder;
 import jodd.forum.model.Post;
-import jodd.forum.model.User;
-import jodd.jtx.meta.ReadWriteTransaction;
 import jodd.petite.meta.PetiteBean;
 
 import java.sql.ResultSet;
@@ -20,18 +18,14 @@ import static jodd.db.oom.sqlgen.DbSqlBuilder.sql;
 public class PostMapper {
 
     public List<Post> listPostByUid(String uid) {
-
-//            <select id="listPostByUid" resultType="com.fc.model.Post">
-//                select uid,pid,title,publish_time from post where uid=#{uid}
-//    </select>
-
+        Integer uid_i = Integer.parseInt(uid);
         DbSqlBuilder dbsql =
-                sql("select $C{p.uid} $C{p.pid} $C{p.title} $C{p.publishTime} from $T{Post p} where uid=:uid  ");
+                sql("select $C{p.uid}, $C{p.pid} ,$C{p.title} ,$C{p.publishTime} from $T{Post p} where uid=:uid_i  ");
 
         System.out.println("DbOomQuery dbquery = query(dbsql);");
         DbOomQuery dbquery = query(dbsql);
         System.out.println("dbquery.setString");
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid_i", uid_i);
 
 
         List<Post> list = dbquery.list(Post.class);
@@ -73,7 +67,10 @@ public class PostMapper {
                 Integer replyCount = rs.getInt("reply_count");
                 Integer likeCount = rs.getInt("like_count");
                 Integer scanCount = rs.getInt("scan_count");
-                Post post = new Post(pid, title, publishTime, replyTime, replyCount, likeCount, scanCount);
+                String username = rs.getString("username");
+                String headUrl = rs.getString("head_url");
+                Integer uid = rs.getInt("uid");
+                Post post = new Post(uid, pid, title, publishTime, replyTime, replyCount, likeCount, scanCount, username, headUrl);
                 list.add(post);
             }
         } catch (SQLException e) {
@@ -99,32 +96,24 @@ public class PostMapper {
 
 
     public Post getPostByPid(int pid) {
-
         DbSqlBuilder dbsql =
-                sql("select $C{u.uid},$C{u.username},$C{u.headUrl},$C{p.pid},$C{p.title},$C{p.content}," +
-                        "$C{p.publishTime},p$C{.replyTime},$C{p.replyCount},$C{p.likeCount}" +
-                        ",$C{p.scanCount} from $T{post p}" +
-                        "     join $T{user u} on $p.uid = $u.uid where $p.pid=:pid ");
-
-
+                sql("select $C{u.uid}, $C{u.username}, $C{u.headUrl}, $C{p.pid}, $C{p.title}, $C{p.content}, $C{p.publishTime}, $C{p.replyTime}, $C{p.replyCount}, $C{p.likeCount}, $C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid where p.pid=:pid ");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setInteger("pid", pid);
         ResultSet rs = dbquery.execute();
         Post post = new Post();
-        User user = new User();
         try {
-            user.setUid(rs.getInt("uid"));
-            user.setUsername(rs.getString("username"));
-            user.setHeadUrl(rs.getString("headUrl"));
-            post.setPid(rs.getInt("pid"));
-            post.setTitle(rs.getString("title"));
-            post.setContent(rs.getString("content"));
-            post.setPublishTime(rs.getString("publishTime"));
-            post.setReplyTime(rs.getString("replyTime"));
-            post.setReplyCount(rs.getInt("replyCount"));
-            post.setUser(user);
-            post.setLikeCount(rs.getInt("likeCount"));
-            post.setScanCount(rs.getInt("scanCount"));
+            while (rs.next()) {
+                post.setPid(rs.getInt("pid"));
+                post.setTitle(rs.getString("title"));
+                post.setContent(rs.getString("content"));
+                post.setPublishTime(rs.getString("publish_time"));
+                post.setReplyTime(rs.getString("reply_time"));
+                post.setReplyCount(rs.getInt("reply_count"));
+                post.setUid(getUidByPid(pid));
+                post.setLikeCount(rs.getInt("like_count"));
+                post.setScanCount(rs.getInt("scan_count"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -132,18 +121,33 @@ public class PostMapper {
     }
 
     public void updateReplyCount(int pid) {
+        DbSqlBuilder dbsql =
+                sql("update $T{Post p} set reply_count=reply_count+1  where pid = :pid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("pid", pid);
+        dbquery.executeUpdate();
 //            <update id="updateReplyCount">
 //                update post set reply_count = reply_count + 1 where pid = #{pid}
 //    </update>
     }
 
     public void updateScanCount(int pid) {
+        DbSqlBuilder dbsql =
+                sql("update $T{Post p} set scan_count=scan_count+1  where pid = :pid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("pid", pid);
+        dbquery.executeUpdate();
 //    <update id="updateScanCount">
 //                update post set scan_count = scan_count + 1 where pid = #{pid}
 //    </update>
     }
 
     public void updateReplyTime(int pid) {
+        DbSqlBuilder dbsql =
+                sql("update $T{Post p} set reply_time=date_format(now(),'%Y-%c-%d %H:%i:%s')  where pid = :pid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("pid", pid);
+        dbquery.executeUpdate();
 //   <update id="updateReplyTime">
 //                update post set reply_time = date_format(now(),'%Y-%c-%d %H:%i:%s')
 //        where pid=#{pid}
@@ -152,14 +156,25 @@ public class PostMapper {
     }
 
     public int getUidByPid(int pid) {
-        return 0;
+        DbSqlBuilder dbsql =
+                sql("select uid from $T{Post p} where pid = :pid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("pid", pid);
+        List<Post> list = dbquery.list(Post.class);
+        return list.get(0).getUid();
 //           <select id="getUidByPid" resultType="int">
 //                select uid from post where pid=#{pid}
 //    </select>
     }
 
     public String getTitleByPid(int pid) {
-        return null;
+        DbSqlBuilder dbsql =
+                sql("select p.title from $T{Post p} where pid = :pid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("pid", pid);
+        List<Post> list = dbquery.list(Post.class);
+        return list.get(0).getTitle();
+
 //           <select id="getTitleByPid" resultType="String">
 //                select title from post where pid=#{pid}
 //    </select>

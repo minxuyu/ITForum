@@ -14,9 +14,9 @@ public class Reply {
     private String content;
     //两个外键，指向Post和User
     @DbColumn
-    private Post post;
+    private Integer pid;
     @DbColumn
-    private User user;
+    private Integer uid;
 
     //回复时间
     @DbColumn
@@ -48,20 +48,20 @@ public class Reply {
         this.content = content;
     }
 
-    public Post getPost() {
-        return post;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public List<Comment> getCommentList() {
@@ -85,8 +85,8 @@ public class Reply {
         return "Reply{" +
                 "rid=" + rid +
                 ", content='" + content + '\'' +
-                ", post=" + post +
-                ", user=" + user +
+                ", pid=" + pid +
+                ", uid=" + uid +
                 ", replyTime='" + replyTime + '\'' +
                 ", commentList=" + commentList +
                 '}';

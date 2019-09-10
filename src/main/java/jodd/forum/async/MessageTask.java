@@ -70,7 +70,7 @@ public class MessageTask{
         message.setUid(uid);
 
         //设置点赞人id和用户名
-        User user = userMapper.selectUsernameByUid(sessionUid+"");
+        User user = userMapper.selectUserByUid(sessionUid+"");
         message.setOtherId(user.getUid());
         message.setOtherUsername(user.getUsername());
         message.setPostId(pid);
@@ -84,7 +84,7 @@ public class MessageTask{
             message.setDisplayedContent(postMapper.getTitleByPid(pid));
         }else if(operation== MyConstant.OPERATION_COMMENT){
             message.setOperation("评论了你帖子的回复");
-            String content = replyMapper.getContentByRid(rid+"");
+            String content = replyMapper.getContentByRid(rid);
             message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
         }
         //向数据库插入一条消息

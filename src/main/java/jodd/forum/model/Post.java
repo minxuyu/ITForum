@@ -3,9 +3,15 @@ package jodd.forum.model;
 import jodd.db.oom.meta.DbColumn;
 import jodd.db.oom.meta.DbId;
 import jodd.db.oom.meta.DbTable;
+import jodd.forum.mapper.UserMapper;
+import jodd.petite.meta.PetiteInject;
 
 @DbTable
 public class Post {
+
+    @PetiteInject
+    UserMapper userMapper;
+
     @DbId
     private Integer pid;
 
@@ -31,15 +37,45 @@ public class Post {
 
     //两个外键
     @DbColumn
-    private User user;
+    private Integer uid;
     @DbColumn
-    private Topic topic;
+    private Integer tid;
+    @DbColumn
+    private String headUrl;
+    @DbColumn
+    private String username;
+
+    public Post(String title, String content, Integer uid, Integer tid, String headUrl, String username) {
+        this.title = title;
+        this.content = content;
+        this.uid = uid;
+        this.tid = tid;
+        this.headUrl = headUrl;
+        this.username = username;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Post() {
 
     }
 
-    public Post(Integer pid, String title, String publishTime, String replyTime, Integer replyCount, Integer likeCount, Integer scanCount) {
+    public Post(Integer uid, Integer pid, String title, String publishTime, String replyTime, Integer replyCount, Integer likeCount, Integer scanCount, String username, String headUrl) {
+        this.uid = uid;
         this.pid = pid;
         this.title = title;
         this.publishTime = publishTime;
@@ -47,6 +83,8 @@ public class Post {
         this.replyCount = replyCount;
         this.likeCount = likeCount;
         this.scanCount = scanCount;
+        this.username = username;
+        this.headUrl = headUrl;
     }
 
     public Post(Integer pid) {
@@ -117,20 +155,20 @@ public class Post {
         this.scanCount = scanCount;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Integer getTid() {
+        return tid;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     @Override
@@ -144,8 +182,8 @@ public class Post {
                 ", replyCount=" + replyCount +
                 ", likeCount=" + likeCount +
                 ", scanCount=" + scanCount +
-                ", user=" + user +
-                ", topic=" + topic +
+                ", uid=" + uid +
+                ", tid=" + tid +
                 '}';
     }
 }
