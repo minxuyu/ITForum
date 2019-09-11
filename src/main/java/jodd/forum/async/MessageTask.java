@@ -63,31 +63,31 @@ public class MessageTask{
     }
 
     public void sendMessage() {
-        //´´½¨ÏûÏ¢¶ÔÏó
+        //åˆ›å»ºæ¶ˆæ¯å¯¹è±¡
         Message message = new Message();
-        //ÉèÖÃÊÇË­µÄÏûÏ¢
+        //è®¾ç½®æ˜¯è°çš„æ¶ˆæ¯
         int uid = postMapper.getUidByPid(pid);
         message.setUid(uid);
 
-        //ÉèÖÃµãÔŞÈËidºÍÓÃ»§Ãû
+        //è®¾ç½®ç‚¹åœ¨äººidå’Œç”¨æˆ·å
         User user = userMapper.selectUserByUid(sessionUid+"");
         message.setOtherId(user.getUid());
         message.setOtherUsername(user.getUsername());
         message.setPostId(pid);
 
-        //ÉèÖÃ²Ù×÷ºÍÕ¹Ê¾µÄÄÚÈİ
+        //è®¾ç½®æ“ä½œå’Œå±•ç¤ºå†…å®¹
         if(operation== MyConstant.OPERATION_CLICK_LIKE){
-            message.setOperation("ÔŞÁËÄúµÄÌû×Ó");
+            message.setOperation("èµäº†æ‚¨çš„è´´å­");
             message.setDisplayedContent(postMapper.getTitleByPid(pid));
         }else if(operation==MyConstant.OPERATION_REPLY){
-            message.setOperation("»Ø¸´ÁËÄúµÄÌû×Ó");
+            message.setOperation("å›å¤äº†æ‚¨çš„è´´å­");
             message.setDisplayedContent(postMapper.getTitleByPid(pid));
         }else if(operation== MyConstant.OPERATION_COMMENT){
-            message.setOperation("ÆÀÂÛÁËÄãÌû×ÓµÄ»Ø¸´");
+            message.setOperation("è¯„è®ºäº†ä½ è´´å­çš„å›å¤");
             String content = replyMapper.getContentByRid(rid);
             message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
         }
-        //ÏòÊı¾İ¿â²åÈëÒ»ÌõÏûÏ¢
+        //å‘æ•°æ®åº“æ’å…¥ä¸€æ¡æ¶ˆæ¯
         messageMapper.insertMessage(message);
     }
 }

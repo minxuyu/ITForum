@@ -54,7 +54,7 @@ public class LoginAction {
         user.setPassword(repassword);
         String result = loginService.register(user, repassword);
         if (result.equals("ok")) {
-            info = "系统已经向你的邮箱发送了一封邮件哦，验证后就可以登录啦~";
+            info = "系统已经向你的邮箱发送了一份邮件，验证后就可以登陆啦~";
             return "prompt/promptInfo";
         } else {
             register = "yes";
@@ -85,7 +85,7 @@ public class LoginAction {
     @Action("/activate.do")
     public String activate() {
         loginService.activate(code);
-        info = "您的账户已经激活成功，可以去登录啦~";
+        info = "您的账户已经激活成功，可以去登陆啦~";
         return "prompt/promptInfo";
     }
 

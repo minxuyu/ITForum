@@ -45,17 +45,16 @@ public class PostMapper {
 //    </insert>
     }
 
-    public List<Post> listPostByTime(String offset, String limit) {
-        int off_set = Integer.parseInt(offset);
-        int lim_it = Integer.parseInt(limit);
+    public List<Post> listPostByTime(int offset, int limit) {
+
         DbSqlBuilder dbsql =
                 sql("select $C{u.uid} ,$C{u.username} ,$C{u.headUrl}, $C{p.pid}, $C{p.title}," +
                         "$C{p.publishTime} ,$C{p.replyTime} ,$C{p.replyCount}, $C{p.likeCount} ," +
-                        "$C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid  order by $C{p.replyTime} desc limit :off_set,:lim_it");
+                        "$C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid  order by $C{p.replyTime} desc limit :offset,:limit");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setInteger("off_set", off_set);
-        dbquery.setInteger("lim_it", lim_it);
-        System.out.println("查询数据库获取推送列表");
+        dbquery.setInteger("offset", offset);
+        dbquery.setInteger("limit", limit);
+
         ResultSet rs = dbquery.execute();
         List<Post> list = new ArrayList<>();
         try {
@@ -87,9 +86,9 @@ public class PostMapper {
         DbOomQuery dbquery = query(dbsql);
         System.out.println("DbOomQuery dbquery = query(dbsql);");
         System.out.println("dbquery.setString");
-        System.out.println("查询推送信息总页数");
+
         List<Post> list = dbquery.list(Post.class);
-        System.out.println("查询完毕");
+
         int a = list.size();
         return a;
     }

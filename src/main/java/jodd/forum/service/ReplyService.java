@@ -17,10 +17,10 @@ public class ReplyService {
 
     @ReadWriteTransaction
     public List<Reply> listReply(int pid) {
-        //列出回复
+        //鍒楀嚭鍥炲
         List<Reply> replyList = replyMapper.listReply(pid);
         for (Reply reply : replyList) {
-            //列出每条回复下的评论
+            //鍒楀嚭姣忔潯鍥炲涓嬬殑璇勮
             List<Comment> commentList = replyMapper.listComment(reply.getRid());
             reply.setCommentList(commentList);
         }

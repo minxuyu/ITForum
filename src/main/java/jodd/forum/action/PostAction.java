@@ -70,7 +70,7 @@ public class PostAction {
         return "publish";
     }
 
-    //发帖
+
     @RequestMapping("/publishPost.do")
     public String publishPost() {
         String post_headUrl = userService.getHeadUrlByUid(post_uid);
@@ -95,13 +95,13 @@ public class PostAction {
     public String toPost() {
         System.out.println("In toPost.do getAttribute");
         Integer sessionUid = (Integer) session.getAttribute("uid");
-        //获取帖子信息
+
         System.out.println("In toPost.do getPostByPid");
         post = postService.getPostByPid(pid);
-        //获取评论信息
+
         System.out.println("In toPost.do listReply");
         replyList = replyService.listReply(pid);
-        //判断用户是否已经点赞
+
         liked = false;
         if (sessionUid != null) {
             System.out.println("In toPost.do getLikeStatus");
@@ -110,7 +110,7 @@ public class PostAction {
         return "post";
     }
 
-    //异步点赞
+
     @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8")
     public @ResponseBody
     String ajaxClickLike(int pid, HttpSession session) {

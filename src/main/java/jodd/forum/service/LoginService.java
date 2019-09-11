@@ -30,25 +30,25 @@ public class LoginService {
         Pattern p = Pattern.compile("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
         Matcher m = p.matcher(user.getEmail());
         if(!m.matches()){
-            return "邮箱格式有问题啊~";
+            return "邮箱格式不对呀~";
         }
 
         //校验密码长度
         p = Pattern.compile("^\\w{6,20}$");
         m = p.matcher(user.getPassword());
         if(!m.matches()){
-            return "密码长度要在6到20之间~";
+            return "密码长度要在6-20位之间~";
         }
 
         //检查密码
         if(!user.getPassword().equals(repassword)){
-            return "两次密码输入不一致~";
+            return "两次输入的密码不一致~";
         }
 
         //检查邮箱是否被注册
         int emailCount = userMapper.selectEmailCount(user.getEmail());
         if(emailCount>0){
-            return "该邮箱已被注册~";
+            return "该邮箱已经被注册了~";
         }
 
         //构造user，设置未激活
@@ -78,24 +78,22 @@ public class LoginService {
     @ReadWriteTransaction
     public Map<String,Object> login(User user) {
         Map<String,Object> map = new HashMap<>();
-        System.out.println("后台开始查找用户");
         Integer uid = userMapper.selectUidByEmailAndPassword(user);
-        String uid_s = uid + "";
-        System.out.println("后台找到的用户是"+" "+uid_s);
-        if(uid==null){
+
+        if(uid==0){
             map.put("status","no");
-            map.put("error","用户名或密码错误~");
+            map.put("error","用户名和密码错误~");
             return map;
         }
 
         int checkActived = userMapper.selectActived(user);
         if(checkActived==0){
             map.put("status","no");
-            map.put("error","您还没有激活账户哦，请前往邮箱激活~");
+            map.put("error","您还没有激活用户哦，请前往邮箱激活~");
             return map;
         }
 
-        String headUrl = userMapper.selectHeadUrl(uid_s);
+        String headUrl = userMapper.selectHeadUrl(uid);
 
         map.put("status","yes");
         map.put("uid",uid);

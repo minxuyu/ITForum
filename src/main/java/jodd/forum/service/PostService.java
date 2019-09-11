@@ -49,7 +49,7 @@ public class PostService {
             allPage = allCount / limit + 1;
         }
         //获得总记录数，总页数System.out.println("分页得到数据列表");
-        List<Post> postList = postMapper.listPostByTime(offset + "", limit + "");
+        List<Post> postList = postMapper.listPostByTime(offset, limit );
         Jedis jedis = redisService.getResource();
         for (Post post : postList) {
             post.setLikeCount((int) (long) jedis.scard(post.getPid() + ":like"));
@@ -133,7 +133,7 @@ public class PostService {
         postMapper.insertPost(post);
         System.out.println(post.getPid());
         //更新用户发帖量
-        userMapper.updatePostCount(post.getUid() + "");
+        userMapper.updatePostCount(post.getUid() );
         return post.getPid();
     }
 

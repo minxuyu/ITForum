@@ -42,7 +42,12 @@ public class UserMapper {
         dbquery.setString("email", user.getEmail());
         dbquery.setString("password", user.getPassword());
         List<User> list = dbquery.list(User.class);
-        return list.get(0).getUid();
+        if(list.isEmpty()){
+            return 0;
+        }else {
+            return list.get(0).getUid();
+        }
+
     }
 
     public int selectActived(User user) {
@@ -54,11 +59,11 @@ public class UserMapper {
         return list.get(0).getActived();
     }
 
-    public String selectHeadUrl(String uid) {
+    public String selectHeadUrl(int uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{u.headUrl} from $T{User u} where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         List<User> list = dbquery.list(User.class);
         return list.get(0).getHeadUrl();
     }
@@ -110,11 +115,11 @@ public class UserMapper {
 
     }
 
-    public User selectEditInfo(String uid) {
+    public User selectEditInfo(int uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{u.uid}, $C{u.username}, $C{u.description} ,$C{u.school} ,$C{u.job} from $T{User u}  where uid= :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         User user = null;
         ResultSet resultSet = dbquery.execute();
         try {
@@ -149,20 +154,20 @@ public class UserMapper {
 //        where uid=#{uid}
     }
 
-    public void updatePassword(String newPassword, String uid) {
+    public void updatePassword(String newPassword, int uid) {
         DbSqlBuilder dbsql =
                 sql("update $T{User u} set password= :password  where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setString("password", newPassword);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         dbquery.executeUpdate();
     }
 
-    public String selectPasswordByUid(String uid) {
+    public String selectPasswordByUid(int uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{u.password} from $T{User u}  where uid= :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         String password = null;
         ResultSet resultSet = dbquery.execute();
         try {
@@ -175,29 +180,29 @@ public class UserMapper {
         return password;
     }
 
-    public void updateHeadUrl(String uid, String headUrl) {
+    public void updateHeadUrl(int uid, String headUrl) {
         DbSqlBuilder dbsql =
                 sql("update $T{User u} set head_url= :headUrl  where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setString("headUrl", headUrl);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         dbquery.executeUpdate();
     }
 
-    public String selectUsernameByUid(String uid) {
+    public String selectUsernameByUid(int uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{u.username} from $T{User u} where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         List<User> list = dbquery.list(User.class);
         return list.get(0).getUsername();
     }
 
-    public void updatePostCount(String uid) {
+    public void updatePostCount(int uid) {
         DbSqlBuilder dbsql =
                 sql("update $T{User u} set post_count=post_count+1  where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         dbquery.executeUpdate();
 //        update user set post_count = post_count+1 where uid=#{uid};
     }

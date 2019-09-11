@@ -67,8 +67,8 @@ public class UserService {
 
     @ReadWriteTransaction
     public User getEditInfo(int uid) {
-        String uid_s = uid + "";
-        return userMapper.selectEditInfo(uid_s);
+
+        return userMapper.selectEditInfo(uid);
     }
 
     @ReadWriteTransaction
@@ -78,8 +78,8 @@ public class UserService {
 
     @ReadWriteTransaction
     public String updatePassword(String password, String newpassword, String repassword, int sessionUid) {
-        String sessionUid_s = sessionUid+"";
-        String oldPassword = userMapper.selectPasswordByUid(sessionUid_s);
+
+        String oldPassword = userMapper.selectPasswordByUid(sessionUid);
         if(!oldPassword.equals(password)){
             return "原密码输入错误~";
         }
@@ -90,14 +90,14 @@ public class UserService {
         if(!newpassword.equals(repassword)){
             return "新密码两次输入不一致~";
         }
-        userMapper.updatePassword(newpassword,sessionUid_s);
+        userMapper.updatePassword(newpassword,sessionUid);
         return "ok";
     }
 
     @ReadWriteTransaction
     public void updateHeadUrl(int uid, String headUrl) {
-        String uid_s = uid + "";
-        userMapper.updateHeadUrl(uid_s,headUrl);
+
+        userMapper.updateHeadUrl(uid,headUrl);
         System.out.println("Success");
     }
 
@@ -113,11 +113,11 @@ public class UserService {
 
     @ReadWriteTransaction
     public String getHeadUrlByUid(int uid){
-        return userMapper.selectHeadUrl(uid+"");
+        return userMapper.selectHeadUrl(uid);
     }
 
     @ReadWriteTransaction
     public String getUsernameByUid(int uid){
-        return userMapper.selectUsernameByUid(uid+"");
+        return userMapper.selectUsernameByUid(uid);
     }
 }
