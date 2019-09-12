@@ -96,7 +96,7 @@ public class PostMapper {
 
     public Post getPostByPid(int pid) {
         DbSqlBuilder dbsql =
-                sql("select $C{u.uid}, $C{u.username}, $C{u.headUrl}, $C{p.pid}, $C{p.title}, $C{p.content}, $C{p.publishTime}, $C{p.replyTime}, $C{p.replyCount}, $C{p.likeCount}, $C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid where p.pid=:pid ");
+                sql("select $C{u.uid}, $C{u.username}, $C{p.headUrl}, $C{p.pid}, $C{p.title}, $C{p.content}, $C{p.publishTime}, $C{p.replyTime}, $C{p.replyCount}, $C{p.likeCount}, $C{p.scanCount} from $T{Post p} join $T{User u} on p.uid = u.uid where p.pid=:pid ");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setInteger("pid", pid);
         ResultSet rs = dbquery.execute();
@@ -110,6 +110,7 @@ public class PostMapper {
                 post.setReplyTime(rs.getString("reply_time"));
                 post.setReplyCount(rs.getInt("reply_count"));
                 post.setUid(getUidByPid(pid));
+                post.setHeadUrl(rs.getString("head_url"));
                 post.setLikeCount(rs.getInt("like_count"));
                 post.setScanCount(rs.getInt("scan_count"));
             }
@@ -178,4 +179,6 @@ public class PostMapper {
 //                select title from post where pid=#{pid}
 //    </select>
     }
+
+
 }

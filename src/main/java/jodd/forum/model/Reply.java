@@ -25,6 +25,26 @@ public class Reply {
     //存储楼中楼的集合
     @DbColumn
     private List<Comment> commentList;
+    @DbColumn
+    private String headUrl;
+    @DbColumn
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
 
     public Reply() {}
 

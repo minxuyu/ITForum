@@ -112,7 +112,10 @@ public class PostService {
         messageTask.setPid(pid);
         messageTask.setRid(0);
         messageTask.setSessionUid(sessionUid);
-        messageTask.sendMessage();
+        //改进
+        Thread thread=new Thread(messageTask);
+        thread.start();
+        //messageTask.run();//这种启动多线程的方法不好
         String result = String.valueOf(jedis.scard(pid + ":like"));
 
         if (jedis != null) {
@@ -122,7 +125,7 @@ public class PostService {
     }
 
     @ReadWriteTransaction
-    public int publishPost(Post post) {
+    public void publishPost(Post post) {
         //构造帖子
         post.setPublishTime(MyUtil.formatDate(new Date()));
         post.setReplyTime(MyUtil.formatDate(new Date()));
@@ -131,10 +134,9 @@ public class PostService {
         post.setScanCount(0);
         //插入一条帖子记录
         postMapper.insertPost(post);
-        System.out.println(post.getPid());
+
         //更新用户发帖量
         userMapper.updatePostCount(post.getUid() );
-        return post.getPid();
     }
 
 

@@ -9,6 +9,7 @@ import jodd.madvoc.meta.Action;
 import jodd.madvoc.meta.In;
 import jodd.madvoc.meta.MadvocAction;
 import jodd.madvoc.meta.Out;
+import jodd.madvoc.meta.method.POST;
 import jodd.petite.meta.PetiteInject;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +46,8 @@ public class PostAction {
     List<Topic> topicList;
     @Out
     String redirect;
-    @Out
-    int publishPost_id;
+//    @Out
+//    int publishPost_id;
 
 
     @In
@@ -71,12 +72,12 @@ public class PostAction {
     }
 
 
-    @RequestMapping("/publishPost.do")
+    @Action("/publishPost.do")
     public String publishPost() {
         String post_headUrl = userService.getHeadUrlByUid(post_uid);
         String post_username = userService.getUsernameByUid(post_uid);
         Post post = new Post(post_title,post_content,post_uid,post_tid,post_headUrl,post_username);
-        publishPost_id = postService.publishPost(post);
+        postService.publishPost(post);
         redirect = "toPost.do";
         return "publish";
     }
@@ -101,6 +102,7 @@ public class PostAction {
 
         System.out.println("In toPost.do listReply");
         replyList = replyService.listReply(pid);
+        System.out.println(replyList);
 
         liked = false;
         if (sessionUid != null) {
@@ -111,7 +113,7 @@ public class PostAction {
     }
 
 
-    @RequestMapping(value = "/ajaxClickLike.do", produces = "text/plain;charset=UTF-8")
+    @Action("/ajaxClickLike.do")
     public @ResponseBody
     String ajaxClickLike(int pid, HttpSession session) {
         int sessionUid = (int) session.getAttribute("uid");

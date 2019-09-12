@@ -11,7 +11,7 @@ import jodd.petite.meta.PetiteBean;
 import jodd.petite.meta.PetiteInject;
 
 @PetiteBean
-public class MessageTask{
+public class MessageTask implements Runnable{
 
     @PetiteInject
     MessageMapper messageMapper;
@@ -62,32 +62,48 @@ public class MessageTask{
     public MessageTask() {
     }
 
-    public void sendMessage() {
-        //创建消息对象
-        Message message = new Message();
-        //设置是谁的消息
-        int uid = postMapper.getUidByPid(pid);
-        message.setUid(uid);
+    public MessageTask(MessageMapper messageMapper, UserMapper userMapper, PostMapper postMapper, ReplyMapper replyMapper, int pid, int rid, int sessionUid, int operation) {
+        this.messageMapper = messageMapper;
+        this.userMapper = userMapper;
+        this.postMapper = postMapper;
+        this.replyMapper = replyMapper;
+        this.pid = pid;
+        this.rid = rid;
+        this.sessionUid = sessionUid;
+        this.operation = operation;
+    }
 
-        //设置点在人id和用户名
-        User user = userMapper.selectUserByUid(sessionUid+"");
-        message.setOtherId(user.getUid());
-        message.setOtherUsername(user.getUsername());
-        message.setPostId(pid);
 
-        //设置操作和展示内容
-        if(operation== MyConstant.OPERATION_CLICK_LIKE){
-            message.setOperation("赞了您的贴子");
-            message.setDisplayedContent(postMapper.getTitleByPid(pid));
-        }else if(operation==MyConstant.OPERATION_REPLY){
-            message.setOperation("回复了您的贴子");
-            message.setDisplayedContent(postMapper.getTitleByPid(pid));
-        }else if(operation== MyConstant.OPERATION_COMMENT){
-            message.setOperation("评论了你贴子的回复");
-            String content = replyMapper.getContentByRid(rid);
-            message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
-        }
-        //向数据库插入一条消息
-        messageMapper.insertMessage(message);
+
+    @Override
+    public void run() {
+
+            //创建消息对象
+            Message message = new Message();
+            //设置是谁的消息
+            int uid = postMapper.getUidByPid(pid);
+            message.setUid(uid);
+
+            //设置点在人id和用户名
+            User user = userMapper.selectUserByUid(sessionUid+"");
+            message.setOtherId(user.getUid());
+            message.setOtherUsername(user.getUsername());
+            message.setPostId(pid);
+
+            //设置操作和展示内容
+            if(operation== MyConstant.OPERATION_CLICK_LIKE){
+                message.setOperation("赞了您的贴子");
+                message.setDisplayedContent(postMapper.getTitleByPid(pid));
+            }else if(operation==MyConstant.OPERATION_REPLY){
+                message.setOperation("回复了您的贴子");
+                message.setDisplayedContent(postMapper.getTitleByPid(pid));
+            }else if(operation== MyConstant.OPERATION_COMMENT){
+                message.setOperation("评论了你贴子的回复");
+                String content = replyMapper.getContentByRid(rid);
+                message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
+            }
+            //向数据库插入一条消息
+            messageMapper.insertMessage(message);
+
     }
 }

@@ -174,7 +174,8 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "pid=" + pid +
+                "userMapper=" + userMapper +
+                ", pid=" + pid +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", publishTime='" + publishTime + '\'' +
@@ -184,6 +185,8 @@ public class Post {
                 ", scanCount=" + scanCount +
                 ", uid=" + uid +
                 ", tid=" + tid +
+                ", headUrl='" + headUrl + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

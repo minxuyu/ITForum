@@ -7,8 +7,11 @@ import jodd.forum.model.Comment;
 import jodd.forum.model.Reply;
 import jodd.petite.meta.PetiteBean;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class ReplyMapper {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm;ss");
         String formatdate = dateFormat.format(date);
+        System.out.println(formatdate);
         DbEntitySql des = new DbEntitySql();
         reply.setReplyTime(formatdate);
         des.insert(reply).query().autoClose().executeUpdate();
@@ -30,10 +34,28 @@ public class ReplyMapper {
 
     public List<Reply> listReply(Integer pid) {
         DbSqlBuilder dbsql =
-                sql("select $C{r.rid}, $C{r.content} ,$C{u.uid}, $C{u.username}, $C{u.headUrl} from $T{Reply r} join $T{User u} on r.uid=u.uid where pid = :pid");
+                sql("select $C{r.rid}, $C{r.content} ,$C{r.replyTime},$C{r.username},$C{r.uid},$C{u.uid}, $C{r.headUrl} from $T{Reply r} join $T{User u} on r.uid=u.uid where pid = :pid");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setInteger("pid", pid);
-        List<Reply> list = dbquery.list(Reply.class);
+        ResultSet resultSet=dbquery.execute();
+
+        //List<Reply> list = dbquery.list(Reply.class);
+        List<Reply> list=new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Reply reply=new Reply();
+                reply.setRid(resultSet.getInt("rid"));
+                reply.setContent(resultSet.getString("content"));
+                reply.setReplyTime(resultSet.getString("reply_time"));
+                reply.setUsername(resultSet.getString("username"));
+                reply.setUid(resultSet.getInt("uid"));
+                reply.setHeadUrl(resultSet.getString("head_url"));
+                reply.setPid(pid);
+                list.add(reply);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return list;
 //        select r.rid,r.content,u.uid,u.username,u.head_url from reply r join user u on r.uid=u.uid
 //        where pid=#{pid}
@@ -51,7 +73,7 @@ public class ReplyMapper {
 
     public List<Comment> listComment(Integer rid) {
         DbSqlBuilder dbsql =
-                sql("select $C{c.cid},$C{c.content},$C{u.uid},$C{u.username},$C{u.headUrl} from $T{Comment c} join user u on c.uid=u.uid where rid = :rid");
+                sql("select $C{c.cid},$C{c.content},$C{u.uid},$C{u.username},$C{u.headUrl} from $T{Comment c} join $T{User u}  on c.uid=u.uid where rid = :rid");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setInteger("rid", rid);
         List<Comment> list = dbquery.list(Comment.class);
