@@ -45,6 +45,7 @@ public class TopicMapper {
                 sql("select image_url from image");
         DbOomQuery dbquery = query(dbsql);
         List<String> list = dbquery.list(String.class);
+        System.out.println(list);
         return list;
     }
 }

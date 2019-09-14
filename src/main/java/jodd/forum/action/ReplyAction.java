@@ -38,15 +38,16 @@ public class ReplyAction {
         int sessionUid = (int) session.getAttribute("uid");
         replyService.reply(sessionUid,pid,content);
         replyPid = pid;
-        redirect = "toPost.do?pid=";
+        //redirect = "toPost.do?pid="+pid;
         return "post";
     }
 
     @Action("/comment.do")
     //评论
-    public String comment(){
+    public void comment(){
         int sessionUid = (int) session.getAttribute("uid");
         replyService.comment(pid,sessionUid,rid,content);
-        return "redirect:toPost.do?pid="+pid;
+        redirect="toPost.do?pid="+pid;
+        //return "toPost.do?pid="+pid;
     }
 }

@@ -71,6 +71,7 @@ public class ReplyService {
         comment.setUid(sessionUid);
         comment.setRid(rid);
         comment.setContent(content);
+        comment.setUsername(userMapper.selectUsernameByUid(sessionUid));
         //插入一条评论
         replyMapper.insertComment(comment);
         //更新最后回复时间

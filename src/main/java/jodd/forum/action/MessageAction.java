@@ -29,6 +29,7 @@ public class MessageAction {
 
     @Action("/toMessage.do")
     public String toMessage() {
+        System.out.println("toMessage.do");
         Integer sessionUid = (Integer) session.getAttribute("uid");
         map = messageService.listMessageByUid(sessionUid);
         System.out.println(map);

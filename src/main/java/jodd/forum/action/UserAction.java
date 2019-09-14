@@ -137,26 +137,33 @@ public class UserAction {
 //
 //    }
 
-//    @Action("/follow.do")
-//    public String follow(int uid,HttpSession session){
-//        int sessionUid = (int) session.getAttribute("uid");
-//        userService.follow(sessionUid,uid);
-//        return "forward:toProfile.do";
-//    }
-//
-//    @Action("/unfollow.do")
-//    public String unfollow(int uid,HttpSession session){
-//        int sessionUid = (int) session.getAttribute("uid");
-//        userService.unfollow(sessionUid,uid);
-//        return "forward:toProfile.do";
-//    }
-//
-//
-//    @Action("/verify.do")
-//    public String verify(String code){
-//        userService.verifyForgetPassword(code);
-//        return "redirect:toLogin.do";
-//    }
+    @Action("/follow.do")
+    public String follow(){
+        System.out.println("following");
+        int sessionUid = (int) session.getAttribute("uid");
+        userService.follow(sessionUid,uid);
+        redirect= "toProfile.do?uid="+uid;
+        //return "toProfile.do?uid="+uid;
+
+        return "profile";
+    }
+
+    @Action("/unfollow.do")
+    public String unfollow(){
+        int sessionUid = (int) session.getAttribute("uid");
+        userService.unfollow(sessionUid,uid);
+
+       redirect= "toProfile.do?uid="+uid;
+        //return "toProfile.do?uid="+uid;
+        return "profile";
+    }
+
+
+    @Action("/verify.do")
+    public String verify(String code){
+        userService.verifyForgetPassword(code);
+        return "login";
+    }
 
     @Action("/toProfile.do")
     public String toProfile() {

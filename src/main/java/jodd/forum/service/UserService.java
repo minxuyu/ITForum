@@ -1,14 +1,14 @@
 package jodd.forum.service;
 
+import jodd.forum.async.MailTask;
 import jodd.forum.mapper.UserMapper;
 import jodd.forum.model.Info;
 import jodd.forum.model.User;
 import jodd.jtx.meta.ReadWriteTransaction;
 import jodd.petite.meta.PetiteBean;
 import jodd.petite.meta.PetiteInject;
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Jedis;
-
+import redis.clients.jedis.Transaction;
 import java.util.List;
 
 
@@ -17,8 +17,11 @@ import java.util.List;
 public class UserService {
     @PetiteInject
     UserMapper userMapper;
-   @PetiteInject
-   RedisService redisService;
+    @PetiteInject
+     RedisService redisService;
+    @PetiteInject
+    MailTask mailTask;
+
 
     @ReadWriteTransaction
     public User getProfile(int sessionUid, int uid) {
@@ -109,6 +112,56 @@ public class UserService {
             redisService.returnResource(jedis);
         }
         return following;
+    }
+    //取消关注
+    @ReadWriteTransaction
+    public void unfollow(int sessionUid, int uid) {
+
+        userMapper.subFollowCount(sessionUid);
+        userMapper.subFollowerCount(uid);
+        Jedis jedis = redisService.getResource();
+        Transaction tx = jedis.multi();
+        tx.srem(sessionUid+":follow", String.valueOf(uid));
+        tx.srem(uid+":fans", String.valueOf(sessionUid));
+        tx.exec();
+
+        if(jedis!=null){
+            redisService.returnResource(jedis);
+        }
+    }
+    //关注用户
+    @ReadWriteTransaction
+    public void follow(int sessionUid, int uid) {
+        System.out.println(sessionUid+"follow"+uid);
+        userMapper.addFollowCount(sessionUid);
+        userMapper.addFollowerCount(uid);
+
+
+        Jedis jedis = redisService.getResource();
+        Transaction tx = jedis.multi();
+        tx.sadd(sessionUid+":follow", String.valueOf(uid));
+        tx.sadd(uid+":fans", String.valueOf(sessionUid));
+        tx.exec();
+        if(jedis!=null){
+            redisService.returnResource(jedis);
+        }
+    }
+
+    //发送忘记密码确认邮件
+    @ReadWriteTransaction
+    public void forgetPassword(String email) {
+        String verifyCode = userMapper.selectVerifyCode(email);
+        System.out.println("verifyCode:"+verifyCode);
+        //发送邮件
+        mailTask.setCode(verifyCode);
+        mailTask.setEmail(email);
+        mailTask.sendEmail();
+    }
+    @ReadWriteTransaction
+    public void verifyForgetPassword(String code) {
+        System.out.println("更新前："+code);
+        userMapper.updatePasswordByActivateCode(code);
+        System.out.println("更新后："+code);
     }
 
     @ReadWriteTransaction

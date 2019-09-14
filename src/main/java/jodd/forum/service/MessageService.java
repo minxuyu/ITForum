@@ -20,8 +20,7 @@ public class MessageService {
 
     @ReadWriteTransaction
     public Map<String, List<Message>> listMessageByUid(Integer sessionUid) {
-        String sessionUid_s = sessionUid + "";
-        List<Message> messageList = messageMapper.listMessageByUid(sessionUid_s);
+        List<Message> messageList = messageMapper.listMessageByUid(sessionUid);
         Map<String, List<Message>> map = new HashMap<>();
         for (Message message : messageList) {
             String time = MyUtil.formatDate(message.getMsgTime()).substring(0, 11);

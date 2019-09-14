@@ -16,17 +16,19 @@ public class MessageMapper {
 
     public void insertMessage(Message message) {
 
+
+
 //            <insert id="insertMessage">
 //                insert into message(uid,other_id,other_username,operation,post_id,displayed_content)
 //        values(#{uid},#{otherId},#{otherUsername},#{operation},#{postId},#{displayedContent})
 //    </insert>
     }
 
-    public List<Message> listMessageByUid(String uid) {
+    public List<Message> listMessageByUid(int uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{m.*} from $T{Message m}  where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         List<Message> list = dbquery.list(Message.class);
         return list;
     }

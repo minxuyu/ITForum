@@ -206,4 +206,70 @@ public class UserMapper {
         dbquery.executeUpdate();
 //        update user set post_count = post_count+1 where uid=#{uid};
     }
+
+    public String selectVerifyCode(String email){
+       DbSqlBuilder dbsql =
+               sql("select u.activateCode from $T{User u} where u.email = :email");
+       DbOomQuery dbquery = query(dbsql);
+        dbquery.setString("email",email);
+        ResultSet resultSet=dbquery.execute();
+        String VerifyCode=null;
+        try{
+            while (resultSet.next()){
+
+                VerifyCode=resultSet.getString("activate_code");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+
+        return VerifyCode;
+        //select activate_code from user where email=#{email}
+    }
+    public void updatePasswordByActivateCode(String code){
+       DbSqlBuilder dbsql =
+               sql("update $T{User u} set password = substring(code :code,1,8)  where activate_code= :code");
+       DbOomQuery dbquery = query(dbsql);
+       dbquery.setString("code",code);
+       dbquery.executeUpdate();
+
+
+        //update user set password=substring(#{code},1,8) where activate_code=#{code}
+    }
+    public void addFollowerCount(int uid){
+        DbSqlBuilder dbsql =
+                sql("update $T{User u} set follower_count=follower_count+1  where uid = :uid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("uid", uid);
+        dbquery.executeUpdate();
+
+    }
+    public void addFollowCount(int sessionUid){
+        DbSqlBuilder dbsql =
+                sql("update $T{User u} set follow_count=follow_count+1  where uid = :sessionUid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("sessionUid", sessionUid);
+        dbquery.executeUpdate();
+
+    }
+    public void subFollowerCount(int uid){
+        DbSqlBuilder dbsql =
+                sql("update $T{User u} set follower_count=follower_count-1  where uid = :uid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("uid", uid);
+        dbquery.executeUpdate();
+
+    }
+    public void subFollowCount(int sessionUid){
+        DbSqlBuilder dbsql =
+                sql("update $T{User u} set follow_count=follow_count-1  where uid = :sessionUid");
+        DbOomQuery dbquery = query(dbsql);
+        dbquery.setInteger("sessionUid", sessionUid);
+        dbquery.executeUpdate();
+
+    }
+
+
 }
