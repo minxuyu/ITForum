@@ -58,8 +58,7 @@ public class ReplyService {
         //插入一条回复消息
         System.out.println("插入一条回复消息");
         MessageTask messageTask = new MessageTask(messageMapper, userMapper, postMapper, replyMapper, pid, 0, sessionUid, MyConstant.OPERATION_REPLY);
-        Thread thread = new Thread(messageTask);
-        thread.start();
+        messageTask.sendMessage();
 
     }
 
@@ -78,8 +77,8 @@ public class ReplyService {
         postMapper.updateReplyTime(pid);
         //插入一条评论消息
         MessageTask messageTask = new MessageTask(messageMapper, userMapper, postMapper, replyMapper, pid, rid, sessionUid, MyConstant.OPERATION_COMMENT);
-        Thread thread = new Thread(messageTask);
-        thread.start();
+
+        messageTask.sendMessage();
     }
 
     @ReadWriteTransaction

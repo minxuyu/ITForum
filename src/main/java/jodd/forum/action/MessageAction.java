@@ -24,6 +24,7 @@ public class MessageAction {
     @Out
     Map<String,List<Message>> map;
 
+
     @In
     HttpSession session;
 

@@ -83,11 +83,11 @@ public class UserMapper {
         dbquery.setString("uid", uid);
     }
 
-    public User selectUserByUid(String uid) {
+    public User selectUserByUid(Integer uid) {
         DbSqlBuilder dbsql =
                 sql("select $C{u.*} from $T{User u} where uid = :uid");
         DbOomQuery dbquery = query(dbsql);
-        dbquery.setString("uid", uid);
+        dbquery.setInteger("uid", uid);
         List<User> list = dbquery.list(User.class);
         return list.get(0);
     }

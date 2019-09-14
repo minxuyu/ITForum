@@ -10,8 +10,10 @@ import jodd.forum.util.MyConstant;
 import jodd.petite.meta.PetiteBean;
 import jodd.petite.meta.PetiteInject;
 
+import java.util.Date;
+
 @PetiteBean
-public class MessageTask implements Runnable{
+public class MessageTask{
 
     @PetiteInject
     MessageMapper messageMapper;
@@ -74,9 +76,7 @@ public class MessageTask implements Runnable{
     }
 
 
-
-    @Override
-    public void run() {
+    public void sendMessage() {
 
             //创建消息对象
             Message message = new Message();
@@ -85,9 +85,12 @@ public class MessageTask implements Runnable{
             message.setUid(uid);
 
             //设置点在人id和用户名
-            User user = userMapper.selectUserByUid(sessionUid+"");
+            User user = userMapper.selectUserByUid(sessionUid);
+        System.out.println(user.getUid());
             message.setOtherId(user.getUid());
+        System.out.println(user.getUsername());
             message.setOtherUsername(user.getUsername());
+        System.out.println(pid);
             message.setPostId(pid);
 
             //设置操作和展示内容
@@ -102,6 +105,7 @@ public class MessageTask implements Runnable{
                 String content = replyMapper.getContentByRid(rid);
                 message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));
             }
+            message.setMsgTime(new Date());
             //向数据库插入一条消息
             messageMapper.insertMessage(message);
 

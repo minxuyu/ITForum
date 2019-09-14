@@ -112,10 +112,9 @@ public class PostService {
         messageTask.setPid(pid);
         messageTask.setRid(0);
         messageTask.setSessionUid(sessionUid);
-        //改进
-        Thread thread=new Thread(messageTask);
-        thread.start();
-        //messageTask.run();//这种启动多线程的方法不好
+
+        messageTask.sendMessage();
+
         String result = String.valueOf(jedis.scard(pid + ":like"));
 
         if (jedis != null) {

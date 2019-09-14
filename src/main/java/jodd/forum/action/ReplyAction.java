@@ -30,7 +30,7 @@ public class ReplyAction {
     @Out
     String redirect;
 
-
+    @POST
     @Action("/reply.do")
     //回复
     public String reply(){
@@ -42,12 +42,16 @@ public class ReplyAction {
         return "post";
     }
 
+
+    @POST
     @Action("/comment.do")
     //评论
-    public void comment(){
+    public String comment(){
+        System.out.println("comment.do");
         int sessionUid = (int) session.getAttribute("uid");
         replyService.comment(pid,sessionUid,rid,content);
-        redirect="toPost.do?pid="+pid;
+        return "post";
+        //redirect="toPost.do?pid="+pid;
         //return "toPost.do?pid="+pid;
     }
 }

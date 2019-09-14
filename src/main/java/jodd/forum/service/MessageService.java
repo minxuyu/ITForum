@@ -4,19 +4,19 @@ import jodd.forum.mapper.MessageMapper;
 import jodd.forum.model.Message;
 import jodd.forum.util.MyUtil;
 import jodd.jtx.meta.ReadWriteTransaction;
+import jodd.madvoc.meta.In;
 import jodd.petite.meta.PetiteBean;
 import jodd.petite.meta.PetiteInject;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @PetiteBean
 public class MessageService {
 
     @PetiteInject
     MessageMapper messageMapper;
+
+
 
     @ReadWriteTransaction
     public Map<String, List<Message>> listMessageByUid(Integer sessionUid) {
@@ -31,6 +31,9 @@ public class MessageService {
                 map.get(time).add(message);
             }
         }
+
+        //Map<String, List<Message>>
+
         return map;
     }
 }

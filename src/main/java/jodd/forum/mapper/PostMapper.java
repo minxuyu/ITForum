@@ -117,7 +117,9 @@ public class PostMapper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(post);
         return post;
+
     }
 
     public void updateReplyCount(int pid) {
@@ -160,8 +162,17 @@ public class PostMapper {
                 sql("select uid from $T{Post p} where pid = :pid");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setInteger("pid", pid);
-        List<Post> list = dbquery.list(Post.class);
-        return list.get(0).getUid();
+        ResultSet resultSet=dbquery.execute();
+        Post post=new Post();
+        try {
+            while (resultSet.next()){
+
+                post.setUid(resultSet.getInt("uid"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return  post.getUid();
 //           <select id="getUidByPid" resultType="int">
 //                select uid from post where pid=#{pid}
 //    </select>
@@ -172,8 +183,18 @@ public class PostMapper {
                 sql("select p.title from $T{Post p} where pid = :pid");
         DbOomQuery dbquery = query(dbsql);
         dbquery.setInteger("pid", pid);
-        List<Post> list = dbquery.list(Post.class);
-        return list.get(0).getTitle();
+        ResultSet resultSet=dbquery.execute();
+        Post post=new Post();
+        try {
+            while (resultSet.next()){
+
+                post.setTitle(resultSet.getString("title"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return post.getTitle();
 
 //           <select id="getTitleByPid" resultType="String">
 //                select title from post where pid=#{pid}

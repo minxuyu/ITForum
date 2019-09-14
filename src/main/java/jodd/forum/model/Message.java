@@ -10,7 +10,7 @@ public class Message {
     @DbId
     private Integer mid;
 
-    //外键，指向User
+
     @DbColumn
     private Integer uid;
 

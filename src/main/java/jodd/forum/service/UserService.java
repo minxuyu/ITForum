@@ -31,7 +31,7 @@ public class UserService {
             userMapper.updateScanCount(uid_s);
         }
         //从数据库得到User对象
-        User user = userMapper.selectUserByUid(uid_s);
+        User user = userMapper.selectUserByUid(uid);
         //设置获赞数，关注数，粉丝数
 //        Jedis jedis = jedisPool.getResource();
 //        user.setFollowCount((int)(long)jedis.scard(uid+":follow"));
