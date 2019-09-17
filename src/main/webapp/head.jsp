@@ -5,7 +5,6 @@
 
 <div class="header clearfix">
     <div class="w">
-        <h1 class="logo"><a href="toIndex.do">IT</a></h1>
         <ul class="left-nav">
             <li class="current-nav"><a href="toIndex.do">首页</a></li>
             <li><a href="listTopic.do">话题</a></li>

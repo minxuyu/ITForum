@@ -10,17 +10,115 @@
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <style>
+        .logo {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .logo ul li {list-style: none; position: absolute; width: 390px; height: 390px; left: 50%;  margin-left: -200px;
+            margin-top: -100px; }
+        @-webkit-keyframes rotationp {
+            0%{
+                -webkit-transform: rotate(0deg);
+            }
+            50%{
+                -webkit-transform: rotate(30deg);
+            }
+            0%{
+                -webkit-transform: rotate(0deg);
+            }
+        }
+        @-webkit-keyframes rotation {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        .Rotationa {
+            -webkit-transform: rotate(0deg);
+            animation: rotation 64s linear infinite;
+            -moz-animation: rotation 64s linear infinite;
+            -webkit-animation: rotation 64s linear infinite;
+            -o-animation: rotation 64s linear infinite;
+        }
+        .Rotationb{
+            -webkit-transform: rotate(0deg);
+            animation: rotationp 4s linear infinite;
+            -moz-animation: rotationp 4s linear infinite;
+            -webkit-animation: rotationp 4s linear infinite;
+            -o-animation: rotationp 4s linear infinite;
+        }
+        .Rotationc {
+            -webkit-transform: rotate(0deg);
+            animation: rotation 16s linear infinite;
+            -moz-animation: rotation 16s linear infinite;
+            -webkit-animation: rotation 16s linear infinite;
+            -o-animation: rotation 16s linear infinite;
+        }
+        .Rotationd{
+            -webkit-transform: rotate(0deg);
+            animation: rotationp 8s linear infinite;
+            -moz-animation: rotationp 8s linear infinite;
+            -webkit-animation: rotationp 8s linear infinite;
+            -o-animation: rotationp 8s linear infinite;
+        }
+        .img {
+            top:52px;
+            position:relative;
+            height:180px;
+            width:180px;
+            border-radius:90px;
+        }
+
+        .imga {
+            height:199px;
+            width:203px;
+            position: relative;
+            top:50px;
+        }
+        .imgb {
+            height:213px;
+            width:106px;
+            position: relative;
+            top:40px;
+        }
+        .imgc {
+            height:253px;
+            width:254px;
+            position: relative;
+            top:19px;
+        }
+        .imgd {
+            height:142px;
+            width:286px;
+            position: relative;
+            top:72px;
+        }
+    </style>
 </head>
 <body>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="head.jsp"/>
 <!-- 中间主体板块 -->
 <div class="main w clearfix">
+
     <div class="buttons clearfix">
         <a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;登录</a>
         <a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;注册</a>
     </div>
+
     <div class="contents">
+        <div class="logo">
+            <ul>
+                <li><img class="img" src="image/portrait.jpeg"></li>
+                <li><img class="Rotationa imga" src="image/portrait_outline_1.png"></li>
+                <li><img class="Rotationb imgb" src="image/portrait_outline_2.png"></li>
+                <li><img class="Rotationc imgc" src="image/portrait_outline_3.png"></li>
+                <li><img class="Rotationd imgd" src="image/portrait_outline_4.png"></li>
+            </ul>
+        </div>
         <div id="login-area">
             <form action="login.do" method="post">
                 <div class="error-message">${error}</div>

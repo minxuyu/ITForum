@@ -96,7 +96,8 @@
     width: 70px;
     text-align: center;
     border-radius: 3px;
-    background-color: #00B091;
+    background-image:url("../image/button_outline.png");
+    background-size:cover;
     color: #fff;
     font: 14px/28px "微软雅黑";   
 }
@@ -273,7 +274,8 @@
     width: 70px;
     text-align: center;
     border-radius: 3px;
-    background-color: #00B091;
+    background-image:url("../image/button_outline.png");
+    background-size:cover;
     color: #fff;
     font: 14px/28px "微软雅黑";
 }
