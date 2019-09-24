@@ -172,7 +172,10 @@
     color: #fff;
     font: 14px/36px "微软雅黑";
 }
-
+.upon-mask button:hover{
+    text-decoration: none;
+    background-color: #e9aa6b;
+}
 .upon-mask span{
     position: absolute;
     top: 6px;

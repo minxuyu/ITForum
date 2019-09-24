@@ -87,12 +87,18 @@
     color: #fff;
     font: 14px/40px "微软雅黑";
 }
-
+#login-area button:hover{
+    text-decoration: none;
+    background-color: #e9aa6b;
+}
 #login-area button#forget-password{
     float: right;
     margin-right: 20px;
 }
-
+#login-area button#forget-password:hover{
+    text-decoration: none;
+    background-color: #e9aa6b;
+}
 .main .contents #register-area{
 
 }
@@ -110,7 +116,10 @@
     color: #fff;
     font: 14px/40px "微软雅黑";
 }
-
+#register-area #register-submit:hover{
+    text-decoration: none;
+    background-color: #e9aa6b;
+}
 .error-message{
     color: red;
     padding-left: 45px;
