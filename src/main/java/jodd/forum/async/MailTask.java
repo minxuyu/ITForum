@@ -54,11 +54,6 @@ public class MailTask {
 
 
     public void sendEmail() {
-        System.out.println(code);
-        System.out.println(email);
-        System.out.println(getJoddMailSender());
-        System.out.println(operation);
-        System.out.println("开始发邮件...");
         JoddMailSender.from(MyConstant.MAIL_FROM);
         JoddMailSender.to(email);
         JoddMailSender.subject("一封激活邮件");

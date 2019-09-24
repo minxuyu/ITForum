@@ -25,7 +25,6 @@ public class LoginService {
     //注册
     @ReadWriteTransaction
     public String register(User user, String repassword) {
-
         //校验邮箱格式
         Pattern p = Pattern.compile("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
         Matcher m = p.matcher(user.getEmail());
@@ -42,7 +41,7 @@ public class LoginService {
 
         //检查密码
         if(!user.getPassword().equals(repassword)){
-            return "两次输入的密码不一致~";
+            return "两次密码输入不一致~";
         }
 
         //检查邮箱是否被注册
@@ -66,7 +65,6 @@ public class LoginService {
         mailTask.sendEmail();
 
         //向数据库插入记录
-        System.out.println("准备插入记录");
         userMapper.insertUser(user);
 
         return "ok";

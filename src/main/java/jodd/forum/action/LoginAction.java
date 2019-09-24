@@ -51,7 +51,7 @@ public class LoginAction {
     @Action("/register.do")
     public String register(User user) {
         user.setEmail(FormEmail);
-        user.setPassword(repassword);
+        user.setPassword(password);
         String result = loginService.register(user, repassword);
         if (result.equals("ok")) {
             info = "系统已经向你的邮箱发送了一份邮件，验证后就可以登陆啦~";
